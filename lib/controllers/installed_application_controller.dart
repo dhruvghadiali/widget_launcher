@@ -13,7 +13,8 @@ class InstalledApplicationController extends GetxController {
     List<dynamic> installedApplicationsList,
   ) async {
     try {
-      final installedApplicationsString = json.encode(installedApplicationsList);
+      final installedApplicationsString =
+          json.encode(installedApplicationsList);
       final installedApplicationsJson =
           json.decode(installedApplicationsString);
 
@@ -34,6 +35,12 @@ class InstalledApplicationController extends GetxController {
 
         installedApplications.add(installedApplication);
       }
+
+      applicationsCanLunched.sort((a, b) {
+        return a.applicationName
+            .toLowerCase()
+            .compareTo(b.applicationName.toLowerCase());
+      });
     } catch (error) {
       print("Error: setInstalledApplications $error");
     }

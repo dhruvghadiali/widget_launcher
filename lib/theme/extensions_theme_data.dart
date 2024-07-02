@@ -2,33 +2,33 @@ import 'package:flutter/material.dart';
 
 class ExtensionsThemeData extends ThemeExtension<ExtensionsThemeData> {
   const ExtensionsThemeData({
-    required this.primary,
-    required this.secondary,
-    required this.accent,
-    required this.error,
+    required this.info,
     required this.warning,
+    required this.success,
+    required this.dark,
+    required this.light,
   });
 
-  final Color? primary;
-  final Color? secondary;
-  final Color? accent;
-  final Color? error;
+  final Color? info;
   final Color? warning;
+  final Color? success;
+  final Color? dark;
+  final Color? light;
 
   @override
   ExtensionsThemeData copyWith({
-    Color? primary,
-    Color? secondary,
-    Color? accent,
-    Color? error,
+    Color? info,
     Color? warning,
+    Color? success,
+    Color? dark,
+    Color? light,
   }) {
     return ExtensionsThemeData(
-      primary: primary ?? primary,
-      secondary: secondary ?? secondary,
-      accent: accent ?? accent,
-      error: error ?? error,
+      info: info ?? info,
       warning: warning ?? warning,
+      success: success ?? success,
+      dark: dark ?? dark,
+      light: light ?? light,
     );
   }
 
@@ -39,11 +39,11 @@ class ExtensionsThemeData extends ThemeExtension<ExtensionsThemeData> {
       return this;
     }
     return ExtensionsThemeData(
-      primary: Color.lerp(primary, other.primary, t),
-      secondary: Color.lerp(secondary, other.secondary, t),
-      accent: Color.lerp(accent, other.accent, t),
-      error: Color.lerp(error, other.error, t),
+      info: Color.lerp(info, other.info, t),
       warning: Color.lerp(warning, other.warning, t),
+      success: Color.lerp(success, other.success, t),
+      dark: Color.lerp(dark, other.dark, t),
+      light: Color.lerp(light, other.light, t),
     );
   }
 }

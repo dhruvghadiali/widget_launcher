@@ -7,24 +7,15 @@ class DarkTheme {
     useMaterial3: false,
     colorScheme: ColorScheme(
       brightness: Brightness.dark,
-      surface: DarkThemeColors.colorPotBlack,
-      onSurface: DarkThemeColors.colorPotBlack,
-      primary: DarkThemeColors.colorPotBlack,
-      onPrimary: DarkThemeColors.colorPotBlack,
-      secondary: DarkThemeColors.colorFloralWhite,
-      onSecondary: DarkThemeColors.colorFloralWhite,
-      error: DarkThemeColors.colorEnglishRed,
-      onError: DarkThemeColors.colorEnglishRed,
-    ),
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        backgroundColor: DarkThemeColors.colorFloralWhite,
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        shadowColor: DarkThemeColors.colorFloralWhite,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-      ),
+      surface: DarkThemeColors.colorBlack,
+      onSurface: DarkThemeColors.colorBlack,
+      primary: DarkThemeColors.colorDarkSlateGray,
+      onPrimary: DarkThemeColors.colorDarkSlateGray,
+      secondary: DarkThemeColors.colorWhite,
+      onSecondary: DarkThemeColors.colorWhite,
+      tertiary:  DarkThemeColors.colorGrey,
+      error: DarkThemeColors.colorCherryBomb,
+      onError: DarkThemeColors.colorCherryBomb,
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(),
@@ -43,15 +34,15 @@ class DarkTheme {
       titleMedium: TextStyle(),
       titleSmall: TextStyle(),
     ).apply(
-      bodyColor: DarkThemeColors.colorFloralWhite,
+      bodyColor: DarkThemeColors.colorWhite,
     ),
     extensions: [
       ExtensionsThemeData(
-        primary: DarkThemeColors.colorPotBlack,
-        secondary: DarkThemeColors.colorFloralWhite,
-        accent: DarkThemeColors.colorUranianBlue,
-        error: DarkThemeColors.colorEnglishRed,
-        warning: DarkThemeColors.colorBergamotOrange,
+        info: DarkThemeColors.colorBattleshipGrey,
+        warning: DarkThemeColors.colorKhaki,
+        success: DarkThemeColors.colorNightWatch,
+        dark: DarkThemeColors.colorDarkVoid,
+        light: DarkThemeColors.colorPlatinum,
       ),
     ],
   );

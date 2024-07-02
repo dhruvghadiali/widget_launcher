@@ -48,11 +48,11 @@ class LightTheme {
     ),
     extensions: [
       ExtensionsThemeData(
-        primary: LightThemeColors.colorFloralWhite,
-        secondary: LightThemeColors.colorPotBlack,
-        accent: LightThemeColors.colorTeal,
-        error: LightThemeColors.colorEnglishRed,
-        warning: LightThemeColors.colorBergamotOrange,
+        info: LightThemeColors.colorFloralWhite,
+        warning: LightThemeColors.colorPotBlack,
+        success: LightThemeColors.colorTeal,
+        dark: LightThemeColors.colorEnglishRed,
+        light: LightThemeColors.colorBergamotOrange,
       ),
     ],
   );

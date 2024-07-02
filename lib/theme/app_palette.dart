@@ -1,11 +1,16 @@
 import 'dart:ui';
 
 abstract class DarkThemeColors {
-  static Color colorPotBlack = const Color(0xFF161616); // Background color
-  static Color colorFloralWhite = const Color(0xFFFFFBF5); // Foreground color 1
-  static Color colorUranianBlue = const Color(0xFFbbe1fa); // Foreground color 2
-  static Color colorEnglishRed = const Color(0xFFAE445A); // Error color
-  static Color colorBergamotOrange = const Color(0xFFF39F5A); // Warning color
+  static Color colorBlack = const Color(0xFF000000); // Surface
+  static Color colorDarkSlateGray = const Color(0xFF2C2C2C); // Primary
+  static Color colorWhite = const Color(0xFFFFFFFF); // Secondary
+  static Color colorGrey = const Color(0xFF777777); // Tertiary
+  static Color colorBattleshipGrey= const Color(0xFF7F7F7F); // Info
+  static Color colorKhaki = const Color(0xFFFFD369); // Warning
+  static Color colorCherryBomb = const Color(0xFFB33A3A); // Danger
+  static Color colorNightWatch = const Color(0xFF3B5249); // Success
+  static Color colorDarkVoid = const Color(0xFF161616); // Dark
+  static Color colorPlatinum = const Color(0xFF3B5249); // light
 }
 
 abstract class LightThemeColors {

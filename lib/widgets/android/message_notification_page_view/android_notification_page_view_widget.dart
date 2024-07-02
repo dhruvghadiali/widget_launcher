@@ -7,7 +7,7 @@ class AndroidMessageNotificationPageViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
-      color: Theme.of(context).colorScheme.primary,
+      color: Theme.of(context).colorScheme.surface,
       child: Center(
         child: Text(
           'Display mobile message notification',

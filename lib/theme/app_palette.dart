@@ -6,11 +6,11 @@ abstract class DarkThemeColors {
   static Color colorWhite = const Color(0xFFFFFFFF); // Secondary
   static Color colorGrey = const Color(0xFF777777); // Tertiary
   static Color colorBattleshipGrey= const Color(0xFF7F7F7F); // Info
-  static Color colorKhaki = const Color(0xFFFFD369); // Warning
+  static Color colorYellow = const Color(0xFFF9FF00); // Warning
   static Color colorCherryBomb = const Color(0xFFB33A3A); // Danger
   static Color colorNightWatch = const Color(0xFF3B5249); // Success
   static Color colorDarkVoid = const Color(0xFF161616); // Dark
-  static Color colorPlatinum = const Color(0xFF3B5249); // light
+  static Color colorPlatinum = const Color(0xFFE0E0E0); // light
 }
 
 abstract class LightThemeColors {

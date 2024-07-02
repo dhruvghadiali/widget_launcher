@@ -39,7 +39,7 @@ class DarkTheme {
     extensions: [
       ExtensionsThemeData(
         info: DarkThemeColors.colorBattleshipGrey,
-        warning: DarkThemeColors.colorKhaki,
+        warning: DarkThemeColors.colorYellow,
         success: DarkThemeColors.colorNightWatch,
         dark: DarkThemeColors.colorDarkVoid,
         light: DarkThemeColors.colorPlatinum,

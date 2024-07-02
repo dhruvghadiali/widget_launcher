@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:widget_launcher/theme/extensions_theme_data.dart';
+import 'package:widget_launcher/widgets/android/greeting_message/android_greeting_message_widget.dart';
 
 class AndroidAppMenuHeaderWidget extends StatelessWidget {
   const AndroidAppMenuHeaderWidget({super.key});
@@ -13,10 +15,12 @@ class AndroidAppMenuHeaderWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Container(
-              height: 100,
-              color: Colors.white,
-            ),
+            // Display Current location name, weather & temperature
+            // Container(
+            //   height: 100,
+            //   color: Colors.white,
+            //   margin: const EdgeInsets.only(bottom: 10),
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,21 +33,21 @@ class AndroidAppMenuHeaderWidget extends StatelessWidget {
                       Text(
                         'Hello, Dhruv',
                         maxLines: 1,
-                        style: Theme.of(context).textTheme.displayMedium,
+                        style:
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
+                                  color: Theme.of(context)
+                                      .extension<ExtensionsThemeData>()!
+                                      .warning,
+                                ),
                       ),
-                      Text(
-                        'Good Evening',
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
+                      const AndroidGreetingMessage()
                     ],
                   ),
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.filter_list_rounded),
+                  icon: const Icon(Icons.filter_list_rounded),
+                  color: Theme.of(context).colorScheme.secondary,
                 )
               ],
             ),

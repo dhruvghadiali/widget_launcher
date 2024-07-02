@@ -7,7 +7,7 @@ class AndroidAppDrawerPageViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.surface,
         width: double.infinity,
         height: 2500,
         child: Text(

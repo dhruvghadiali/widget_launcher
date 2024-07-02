@@ -9,9 +9,11 @@ class AndroidAppMenuPageViewWidget extends StatelessWidget {
     // Check which view will render list view or grid view
     return SingleChildScrollView(
       child: Container(
-          color: Theme.of(context).colorScheme.primary,
-          width: double.infinity,
-          child: const AndroidGridViewAppMenuWidget()),
+        margin: const EdgeInsets.only(bottom: 100),
+        color: Theme.of(context).colorScheme.surface,
+        width: double.infinity,
+        child: const AndroidGridViewAppMenuWidget(),
+      ),
     );
   }
 }

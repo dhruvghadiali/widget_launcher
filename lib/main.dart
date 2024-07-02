@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:widget_launcher/theme/dark_theme.dart';
+import 'package:widget_launcher/theme/light_theme.dart';
 import 'package:widget_launcher/screens/dashboard_screen.dart';
 
 void main() {
@@ -12,10 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Widget Launcher',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: LightTheme.theme,
+      darkTheme: DarkTheme.theme,
       home: const DashboardScreen(),
     );
   }

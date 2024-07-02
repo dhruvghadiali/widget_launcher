@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:widget_launcher/models/installed_application.dart';
 
-class InstalledApplicationController extends GetxController {
+class ApplicationController extends GetxController {
   List<InstalledApplication> installedApplications = [];
   List<InstalledApplication> applicationsInstalledFromPlayStore = [];
   List<InstalledApplication> applicationsInstalledFromDeviceManufacturer = [];

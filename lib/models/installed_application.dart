@@ -3,6 +3,7 @@ class InstalledApplication {
   String packageName;
   String applicationSourceDir;
   String appIconBase64;
+  String luncherIcon;
   bool installedFromPlayStore;
   bool installedFromDeviceManufacturer;
   bool isLaunchable;
@@ -12,6 +13,7 @@ class InstalledApplication {
     required this.packageName,
     required this.applicationSourceDir,
     required this.appIconBase64,
+    required this.luncherIcon,
     required this.installedFromPlayStore,
     required this.installedFromDeviceManufacturer,
     required this.isLaunchable,
@@ -23,28 +25,32 @@ class InstalledApplication {
       packageName: setPackageName(json),
       applicationSourceDir: setApplicationSourceDir(json),
       appIconBase64: setAppIconBase64(json),
+      luncherIcon: setLuncherIcon(json),
       installedFromPlayStore: setInstalledFromPlayStore(json),
       installedFromDeviceManufacturer: setInstalledFromDeviceManufacturer(json),
       isLaunchable: setIsLaunchable(json),
     );
   }
 
-   InstalledApplication copyWith({
-    String? applicationName,
-    String? packageName,
-    String? applicationSourceDir,
-    String? appIconBase64,
-    bool? installedFromPlayStore,
-    bool? installedFromDeviceManufacturer,
-    bool? isLaunchable
-  }) =>
+  InstalledApplication copyWith(
+          {String? applicationName,
+          String? packageName,
+          String? applicationSourceDir,
+          String? appIconBase64,
+          String? luncherIcon,
+          bool? installedFromPlayStore,
+          bool? installedFromDeviceManufacturer,
+          bool? isLaunchable}) =>
       InstalledApplication(
         applicationName: applicationName ?? this.applicationName,
         packageName: packageName ?? this.packageName,
-        applicationSourceDir: applicationSourceDir ??  this.applicationSourceDir,
+        applicationSourceDir: applicationSourceDir ?? this.applicationSourceDir,
         appIconBase64: appIconBase64 ?? this.appIconBase64,
-        installedFromPlayStore: installedFromPlayStore ?? this.installedFromPlayStore,
-        installedFromDeviceManufacturer: installedFromDeviceManufacturer ?? this.installedFromDeviceManufacturer,
+        luncherIcon: luncherIcon ?? this.luncherIcon,
+        installedFromPlayStore:
+            installedFromPlayStore ?? this.installedFromPlayStore,
+        installedFromDeviceManufacturer: installedFromDeviceManufacturer ??
+            this.installedFromDeviceManufacturer,
         isLaunchable: isLaunchable ?? this.isLaunchable,
       );
 
@@ -53,6 +59,7 @@ class InstalledApplication {
         packageName: '',
         applicationSourceDir: '',
         appIconBase64: '',
+        luncherIcon: '',
         installedFromPlayStore: false,
         installedFromDeviceManufacturer: false,
         isLaunchable: false,
@@ -70,7 +77,7 @@ class InstalledApplication {
     return '';
   }
 
-   static String setPackageName(Map<String, dynamic> json) {
+  static String setPackageName(Map<String, dynamic> json) {
     if (json.containsKey('packageName')) {
       if (json['packageName'] != null &&
           json['packageName'] is String &&
@@ -140,5 +147,35 @@ class InstalledApplication {
     }
 
     return false;
+  }
+
+  static String setLuncherIcon(Map<String, dynamic> json) {
+    if (json.containsKey('appName')) {
+      if (json['appName'] != null &&
+          json['appName'] is String &&
+          json['appName'].toString().isNotEmpty) {
+        print("appName ${json['appName']}");
+        switch (json['appName'].toString().toLowerCase()) {
+          case 'adobe acrobat':
+            return 'adobe_acrobat';
+          case 'albums':
+            return 'albums';
+          case 'calculator':
+            return 'calculator';
+          case 'calendar':
+            return 'calendar';
+          case 'camera':
+            return 'camera';
+          case 'chrome':
+            return 'chrome';
+          case 'clock':
+            return 'clock';
+          default:
+            return '';
+        }
+      }
+    }
+
+    return '';
   }
 }

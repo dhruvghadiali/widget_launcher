@@ -154,22 +154,41 @@ class InstalledApplication {
       if (json['appName'] != null &&
           json['appName'] is String &&
           json['appName'].toString().isNotEmpty) {
-        print("appName ${json['appName']}");
+        print("appName ${json['appName']} == ${json['packageName']} == ${json['source']} == ${json['installedFromPlayStore']} == ${json['installedFromDeviceManufacturer']} == ${json['isLaunchable']}");
+        
         switch (json['appName'].toString().toLowerCase()) {
           case 'adobe acrobat':
             return 'adobe_acrobat';
           case 'albums':
             return 'albums';
+          case 'browser':
+            return 'browser';
           case 'calculator':
             return 'calculator';
           case 'calendar':
             return 'calendar';
           case 'camera':
             return 'camera';
+          case 'canva':
+            return 'canva';
           case 'chrome':
             return 'chrome';
           case 'clock':
             return 'clock';
+          case 'compass':
+            return 'compass';
+          case 'contacts':
+            return 'contacts';
+          case 'cred':
+            return 'cred';
+          case 'cricbuzz':
+            return 'cricbuzz';
+          case 'drive':
+            return 'google_drive';
+          case 'facebook':
+            return 'facebook';
+          case 'google_drive':
+            return 'google_drive';
           default:
             return '';
         }

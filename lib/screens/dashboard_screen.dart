@@ -26,8 +26,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<ApplicationController>(
       builder: (installedApplicationControllerContext) {
-        return Scaffold(
-          body: AndroidDashboardWidget(),
+        return PopScope(
+          canPop: false,
+          child: Scaffold(
+            body: AndroidDashboardWidget(),
+          ),
         );
       },
     );

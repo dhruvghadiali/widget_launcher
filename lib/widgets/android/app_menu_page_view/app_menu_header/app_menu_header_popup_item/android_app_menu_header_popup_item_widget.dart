@@ -21,7 +21,7 @@ class AndroidAppMenuHeaderPopupItemWidget extends StatelessWidget {
           icon,
           color: isActive
               ? Theme.of(context).extension<ExtensionsThemeData>()!.light
-              : Theme.of(context).colorScheme.tertiary,
+              : Theme.of(context).extension<ExtensionsThemeData>()!.info,
         ),
         const SizedBox(
           width: 5,
@@ -34,7 +34,9 @@ class AndroidAppMenuHeaderPopupItemWidget extends StatelessWidget {
                       ? Theme.of(context)
                           .extension<ExtensionsThemeData>()!
                           .light
-                      : Theme.of(context).colorScheme.tertiary,
+                      : Theme.of(context)
+                          .extension<ExtensionsThemeData>()!
+                          .info,
                   fontWeight: FontWeight.bold,
                 ),
           ),

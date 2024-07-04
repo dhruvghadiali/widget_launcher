@@ -5,7 +5,7 @@ abstract class DarkThemeColors {
   static Color colorDarkSlateGray = const Color(0xFF2C2C2C); // Primary
   static Color colorWhite = const Color(0xFFFFFFFF); // Secondary
   static Color colorGrey = const Color(0xFF777777); // Tertiary
-  static Color colorBattleshipGrey= const Color(0xFF7F7F7F); // Info
+  static Color colorBattleshipGrey = const Color(0xFF7F7F7F); // Info
   static Color colorYellow = const Color(0xFFF9FF00); // Warning
   static Color colorCherryBomb = const Color(0xFFB33A3A); // Danger
   static Color colorNightWatch = const Color(0xFF3B5249); // Success
@@ -14,9 +14,15 @@ abstract class DarkThemeColors {
 }
 
 abstract class LightThemeColors {
-  static Color colorFloralWhite = const Color(0xFFFFFBF5); // Background color
-  static Color colorPotBlack = const Color(0xFF0F0F0F); // Foreground color 1
-  static Color colorTeal = const Color(0xFF1F6E8C); // Foreground color 2
-  static Color colorEnglishRed = const Color(0xFFAE445A); // Error color
-  static Color colorBergamotOrange = const Color(0xFFF39F5A);
+  static Color colorWhite = const Color(0xFFFFFFFF); // Surface
+  static Color colorPlatinum = const Color(0xFFE0E0E0); // Primary 
+  static Color colorBlack = const Color(0xFF000000); // Secondary
+  static Color colorBattleshipGrey = const Color(0xFF7F7F7F); // Tertiary
+  static Color colorDarkSlateGray = const Color(0xFF2C2C2C);  // Info
+  static Color colorSandyBrown = const Color(0xFFFFBB64); // Warning
+  static Color colorCherryBomb = const Color(0xFFB33A3A); // Danger
+  static Color colorlightGreen = const Color(0xFFA5DD9B); // Success
+  static Color colorDarkVoid = const Color(0xFF161616); // Dark
+  static Color colorGrey = const Color(0xFF777777); // light
+  
 }

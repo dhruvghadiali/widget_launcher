@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.util.Base64
 import android.content.Intent
 import android.graphics.Bitmap
+import android.content.Context
+import android.graphics.Canvas
 import androidx.annotation.NonNull
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.ApplicationInfo
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.AdaptiveIconDrawable
+import androidx.core.app.ActivityOptionsCompat
 
 import java.io.ByteArrayOutputStream
 
@@ -21,9 +25,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 
-import android.content.Context
-import android.graphics.drawable.AdaptiveIconDrawable
-import android.graphics.Canvas
+
 
 
 
@@ -58,10 +60,9 @@ class MainActivity: FlutterActivity(){
             val installedFromDeviceManufacturer = isInstalledFromDeviceManufacturer(packageInfo)
             val launchIntent: Intent? = packageManager.getLaunchIntentForPackage(packageInfo.packageName)
             val isLaunchable = launchIntent != null
-            // val iconBase64 = getAppIconBase64(packageInfo.packageName)
-
             val icon = packageInfo.applicationInfo.loadIcon(packageManager)
             val bitmap = getBitmapFromDrawable(icon)
+
             if (bitmap != null) {
                 val byteArrayOutputStream = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
@@ -94,20 +95,6 @@ class MainActivity: FlutterActivity(){
         return (applicationInfo1.flags and ApplicationInfo.FLAG_SYSTEM) != 0
     }
 
-    // private fun getAppIconBase64(packageName: String): String {
-    //     return try {
-    //         val packageInfo = packageManager.getPackageInfo(packageName, 0)
-    //         val appIcon = packageInfo.applicationInfo.loadIcon(packageManager) as BitmapDrawable
-    //         val bitmap = appIcon.bitmap
-    //         val outputStream = ByteArrayOutputStream()
-    //         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-    //         val byteArray = outputStream.toByteArray()
-    //         Base64.encodeToString(byteArray, Base64.DEFAULT)
-    //     } catch (e: Exception) {
-    //         e.toString()
-    //     }
-    // }
-
     private fun getBitmapFromDrawable(drawable: android.graphics.drawable.Drawable): Bitmap? {
         return when (drawable) {
             is BitmapDrawable -> drawable.bitmap
@@ -132,7 +119,12 @@ class MainActivity: FlutterActivity(){
             val intent = packageManager.getLaunchIntentForPackage(packageName)
             if (intent != null) {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                applicationContext.startActivity(intent)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                applicationContext.startActivity(intent, options.toBundle())
                 return true
             } else {
                 return false

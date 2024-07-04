@@ -63,6 +63,10 @@ flutter:
   assets:
     - assets/images/adobe_acrobat.png
     - assets/images/albums.png
+    - assets/images/amazon.png
+    - assets/images/authenticator.png
+    - assets/images/axis.png
+    - assets/images/browser_plug.png
     - assets/images/browser.png
     - assets/images/calculator.png
     - assets/images/calendar.png
@@ -70,12 +74,28 @@ flutter:
     - assets/images/canva.png
     - assets/images/chrome.png
     - assets/images/clock.png
+    - assets/images/company_portal.png
     - assets/images/compass.png
     - assets/images/contacts.png
     - assets/images/cred.png
     - assets/images/cricbuzz.png
+    - assets/images/daily_dev.png
+    - assets/images/drive.png
+    - assets/images/excel.png
     - assets/images/facebook.png
-    - assets/images/google_drive.png
+    - assets/images/feedback.png
+    - assets/images/files_by_google.png
+    - assets/images/firefox.png
+    - assets/images/fm_radio.png
+    - assets/images/gmail.png
+    - assets/images/google_play_store.png
+    - assets/images/google.png
+    - assets/images/gpay.png
+    - assets/images/outlook.png
+    - assets/images/powerpoint.png
+    - assets/images/teams.png
+    - assets/images/word.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

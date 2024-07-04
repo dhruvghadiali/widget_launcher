@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:widget_launcher/models/installed_application.dart';
+import 'package:widget_launcher/utils/android_native_code_plugin.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/app_menu_popup_item/android_app_menu_popup_item_widget.dart';
 
 class AndroidGridViewAppDetailWidget extends StatefulWidget {
@@ -86,12 +87,10 @@ class _AndroidGridViewAppDetailWidgetState
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        print("Open New App");
-      },
-      onLongPressStart: (LongPressStartDetails details) {
-        _showPopupMenu(details.globalPosition);
-      },
+      onTap: () async =>
+          await AndroidNativeCodePlugin.openApp(widget.application.packageName),
+      onLongPressStart: (LongPressStartDetails details) =>
+          _showPopupMenu(details.globalPosition),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 2),
         margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),

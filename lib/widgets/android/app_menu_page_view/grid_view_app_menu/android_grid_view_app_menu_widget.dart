@@ -41,7 +41,7 @@ class _AndroidGridViewAppMenuWidgetState
             itemBuilder: (BuildContext context, int index) {
               List<InstalledApplication> applicationsByAlphabet = _applications
                   .where((application) =>
-                      application.applicationName.startsWith(_alphabets[index]))
+                      application.applicationName.toUpperCase().startsWith(_alphabets[index]))
                   .toList();
 
               return applicationsByAlphabet.isEmpty

@@ -84,7 +84,10 @@ class _AndroidMobileAppPageViewWidgetState
                     ),
                     child: IconButton(
                       onPressed: () => _onNavitionPressed(),
-                      icon: Icon(_navigationIcon),
+                      icon: Icon(
+                        _navigationIcon,
+                        color: Theme.of(context).colorScheme.tertiary,
+                      ),
                       iconSize: 30,
                       color: Theme.of(context).colorScheme.secondary,
                     ),

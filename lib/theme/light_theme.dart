@@ -7,25 +7,15 @@ class LightTheme {
     useMaterial3: false,
     colorScheme: ColorScheme(
       brightness: Brightness.light,
-      surface: LightThemeColors.colorFloralWhite,
-      onSurface: LightThemeColors.colorFloralWhite,
-      primary: LightThemeColors.colorFloralWhite,
-      onPrimary: LightThemeColors.colorFloralWhite,
-      secondary: LightThemeColors.colorPotBlack,
-      onSecondary: LightThemeColors.colorPotBlack,
-      error: LightThemeColors.colorEnglishRed,
-      onError: LightThemeColors.colorEnglishRed,
-    ),
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        backgroundColor: LightThemeColors.colorPotBlack,
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        elevation: 10,
-        shadowColor: LightThemeColors.colorPotBlack,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-      ),
+      surface: LightThemeColors.colorWhite,
+      onSurface: LightThemeColors.colorWhite,
+      primary: LightThemeColors.colorPlatinum,
+      onPrimary: LightThemeColors.colorPlatinum,
+      secondary: LightThemeColors.colorBlack,
+      onSecondary: LightThemeColors.colorBlack,
+      tertiary:  DarkThemeColors.colorBattleshipGrey,
+      error: LightThemeColors.colorDarkSlateGray,
+      onError: LightThemeColors.colorDarkSlateGray,
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(),
@@ -44,15 +34,15 @@ class LightTheme {
       titleMedium: TextStyle(),
       titleSmall: TextStyle(),
     ).apply(
-      bodyColor: LightThemeColors.colorPotBlack,
+      bodyColor: LightThemeColors.colorBlack,
     ),
     extensions: [
       ExtensionsThemeData(
-        info: LightThemeColors.colorFloralWhite,
-        warning: LightThemeColors.colorPotBlack,
-        success: LightThemeColors.colorTeal,
-        dark: LightThemeColors.colorEnglishRed,
-        light: LightThemeColors.colorBergamotOrange,
+        info: LightThemeColors.colorGrey,
+        warning: LightThemeColors.colorSandyBrown,
+        success: LightThemeColors.colorlightGreen,
+        dark: LightThemeColors.colorDarkVoid,
+        light: LightThemeColors.colorDarkSlateGray ,
       ),
     ],
   );

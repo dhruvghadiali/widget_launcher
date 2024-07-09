@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:widget_launcher/controllers/application_controller.dart';
 import 'package:widget_launcher/theme/extensions_theme_data.dart';
+import 'package:widget_launcher/widgets/android/common/error_messages/empty_drawer_list/android_empty_drawer_list.dart';
 
 class AndroidAppMenuPopupItemWidget extends StatelessWidget {
   const AndroidAppMenuPopupItemWidget({
@@ -22,8 +22,9 @@ class AndroidAppMenuPopupItemWidget extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).pop();
         showModalBottomSheet<void>(
+          backgroundColor: Theme.of(context).colorScheme.primary,
           context: context,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
           ),
           builder: (BuildContext context) {
@@ -80,55 +81,58 @@ class AndroidAppMenuPopupItemWidget extends StatelessWidget {
                         .warning,
                   ),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: installedApplicationController.drawers.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkWell(
-                          highlightColor:
-                              Theme.of(context).colorScheme.tertiary,
-                          borderRadius: BorderRadius.circular(10),
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 15),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    installedApplicationController
-                                        .drawers[index].name,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .secondary,
+                    child: installedApplicationController.drawers.isEmpty
+                        ? const AndroidEmptyDrawerList()
+                        : ListView.builder(
+                            itemCount:
+                                installedApplicationController.drawers.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return InkWell(
+                                highlightColor:
+                                    Theme.of(context).colorScheme.tertiary,
+                                borderRadius: BorderRadius.circular(10),
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 15),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          installedApplicationController
+                                              .drawers[index].name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary,
+                                              ),
                                         ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        '3 apps',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
+                                            ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  '3 apps',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelLarge!
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                      ),
-                                ),
-                              ],
-                            ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
                   ),
                 ],
               ),

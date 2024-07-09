@@ -14,5 +14,17 @@ class DrawerInfo {
 
   static DrawerInfo defaultValues() => DrawerInfo(name: '');
 
-  static String setName(Map<String, dynamic> json) => '';
+  Map<String, dynamic> toJson() => {'name': name};
+
+  static String setName(Map<String, dynamic> json) {
+    if (json.containsKey('name')) {
+      if (json['name'] != null &&
+          json['name'] is String &&
+          json['name'].toString().isNotEmpty) {
+        return json['name'];
+      }
+    }
+
+    return '';
+  }
 }

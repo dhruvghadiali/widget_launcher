@@ -11,16 +11,16 @@ class AndroidSettingsWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.surface,
-            ),
-            child: Image.asset(
-              'assets/images/left_arrow.png',
-              width: 30,
-              height: 30,
-              color: Theme.of(context).colorScheme.secondary,
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            child: GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Image.asset(
+                'assets/images/left_arrow.png',
+                width: 30,
+                height: 30,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             ),
           ),
           Container(

@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
+import 'package:widget_launcher/models/drawer_info.dart';
 import 'package:widget_launcher/models/installed_application.dart';
 
 class ApplicationController extends GetxController {
@@ -8,10 +8,21 @@ class ApplicationController extends GetxController {
   List<InstalledApplication> applicationsInstalledFromPlayStore = [];
   List<InstalledApplication> applicationsInstalledFromDeviceManufacturer = [];
   List<InstalledApplication> applicationsCanLunched = [];
+  List<DrawerInfo> drawers = [];
 
   Future<void> setInstalledApplications(
     List<dynamic> installedApplicationsList,
   ) async {
+    DrawerInfo drawerInfo = DrawerInfo(name: '');
+    drawers = [
+      drawerInfo.copyWith(name: 'Finance'),
+      drawerInfo.copyWith(name: 'Office'),
+      drawerInfo.copyWith(name: 'Google'),
+      drawerInfo.copyWith(name: 'Social Media'),
+      drawerInfo.copyWith(name: 'Editing'),
+      drawerInfo.copyWith(name: 'News')
+    ];
+    
     try {
       final installedApplicationsString =
           json.encode(installedApplicationsList);

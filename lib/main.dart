@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widget_launcher/theme/dark_theme.dart';
 import 'package:widget_launcher/theme/light_theme.dart';
+import 'package:widget_launcher/screens/settings_screen.dart';
 import 'package:widget_launcher/screens/dashboard_screen.dart';
 
 void main() {
@@ -16,7 +17,10 @@ class MyApp extends StatelessWidget {
       title: 'Widget Launcher',
       theme: LightTheme.theme,
       darkTheme: DarkTheme.theme,
-      home: const DashboardScreen(),
+      routes: {
+        '/': (context) => const DashboardScreen(),
+        '/settings': (context) => const SettingsScreen(),
+      },
     );
   }
 }

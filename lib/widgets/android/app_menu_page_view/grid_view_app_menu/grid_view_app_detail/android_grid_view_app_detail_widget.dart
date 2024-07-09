@@ -49,6 +49,7 @@ class _AndroidGridViewAppDetailWidgetState
           child: AndroidAppMenuPopupItemWidget(
             icon: Icons.bar_chart_rounded,
             title: 'App Dashboard',
+            index: 0,
           ),
         ),
         PopupMenuItem(
@@ -57,6 +58,7 @@ class _AndroidGridViewAppDetailWidgetState
           child: AndroidAppMenuPopupItemWidget(
             icon: Icons.view_list_rounded,
             title: 'App Drawer',
+            index: 1,
           ),
         ),
         PopupMenuItem(
@@ -65,6 +67,7 @@ class _AndroidGridViewAppDetailWidgetState
           child: AndroidAppMenuPopupItemWidget(
             icon: Icons.file_download_outlined,
             title: 'Dock',
+            index: 2,
           ),
         ),
         PopupMenuItem(
@@ -73,6 +76,7 @@ class _AndroidGridViewAppDetailWidgetState
           child: AndroidAppMenuPopupItemWidget(
             icon: Icons.hide_source_rounded,
             title: 'Hide',
+            index: 3,
           ),
         ),
       ],

@@ -45,7 +45,16 @@ class AndroidAppMenuHeaderWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-               const AndroidAppMenuHeaderPopupButtonWidget(),
+                Material(
+                  color: Colors.transparent,
+                  shape: const CircleBorder(),
+                  clipBehavior: Clip.hardEdge,
+                  child: IconButton(
+                    onPressed: () => Navigator.pushNamed(context, '/settings'),
+                    icon: const Icon(Icons.settings),
+                  ),
+                ),
+                const AndroidAppMenuHeaderPopupButtonWidget(),
               ],
             ),
           ],

@@ -197,6 +197,8 @@ class InstalledApplication {
             return 'daily_dev';
           case 'drive':
             return 'drive';
+          case 'edge':
+            return 'edge';
           case 'excel':
             return 'excel';
           case 'facebook':
@@ -209,12 +211,22 @@ class InstalledApplication {
             return 'firefox';
           case 'fm radio':
             return 'fm_radio';
+          case 'game space':
+            return 'game_space';
           case 'gmail':
             return 'gmail';
           case 'google play store':
             return 'google_play_store';
+          case 'google tv':
+            return 'google_tv';
           case 'google':
             return 'google';
+          case 'instagram':
+            return 'instagram';
+          case 'keep notes':
+            return 'keep_notes';
+          case 'lightroom':
+            return 'lightroom';
           case 'outlook':
             return 'outlook';
           case 'powerpoint':

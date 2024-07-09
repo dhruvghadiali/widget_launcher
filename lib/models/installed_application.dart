@@ -161,8 +161,16 @@ class InstalledApplication {
             return 'adobe_acrobat';
           case 'albums':
             return 'albums';
+          case 'amazon':
+            return 'amazon';
+          case 'authenticator':
+            return 'authenticator';
+          case 'axis mobile':
+            return 'axis';
           case 'browser':
             return 'browser';
+          case 'browserplug':
+            return 'browser_plug';
           case 'calculator':
             return 'calculator';
           case 'calendar':
@@ -175,6 +183,8 @@ class InstalledApplication {
             return 'chrome';
           case 'clock':
             return 'clock';
+          case 'company portal':
+            return 'company_portal';
           case 'compass':
             return 'compass';
           case 'contacts':
@@ -183,12 +193,48 @@ class InstalledApplication {
             return 'cred';
           case 'cricbuzz':
             return 'cricbuzz';
+          case 'daily.dev':
+            return 'daily_dev';
           case 'drive':
-            return 'google_drive';
+            return 'drive';
+          case 'edge':
+            return 'edge';
+          case 'excel':
+            return 'excel';
           case 'facebook':
             return 'facebook';
-          case 'google_drive':
-            return 'google_drive';
+          case 'feedback':
+            return 'feedback';
+          case 'files by google':
+            return 'files_by_google';
+          case 'firefox':
+            return 'firefox';
+          case 'fm radio':
+            return 'fm_radio';
+          case 'game space':
+            return 'game_space';
+          case 'gmail':
+            return 'gmail';
+          case 'google play store':
+            return 'google_play_store';
+          case 'google tv':
+            return 'google_tv';
+          case 'google':
+            return 'google';
+          case 'instagram':
+            return 'instagram';
+          case 'keep notes':
+            return 'keep_notes';
+          case 'lightroom':
+            return 'lightroom';
+          case 'outlook':
+            return 'outlook';
+          case 'powerpoint':
+            return 'powerpoint';
+          case 'teams':
+            return 'teams';
+          case 'word':
+            return 'word';
           default:
             return '';
         }

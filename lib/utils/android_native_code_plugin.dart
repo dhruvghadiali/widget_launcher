@@ -17,4 +17,16 @@ class AndroidNativeCodePlugin {
       print("Error: Get installed applications $error");
     }
   }
+
+  static Future<void> openApp(String packageName) async {
+    try {
+      bool result =
+          await _channel.invokeMethod('openApp', {'packageName': packageName});
+      if(!result){
+        print("Open Alert for app opening issue $packageName");
+      }
+    } catch (error) {
+      print("Error: Get installed applications $error");
+    }
+  }
 }

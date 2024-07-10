@@ -1,35 +1,21 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:widget_launcher/models/installed_application.dart';
-import 'package:widget_launcher/utils/android_native_code_plugin.dart';
+import 'package:widget_launcher/widgets/android/common/installed_app_card/android_installed_app_card_widget.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/app_menu_popup_item/android_app_menu_popup_item_widget.dart';
+import 'package:widget_launcher/widgets/android/app_menu_page_view/app_menu_drawer_selection/android_app_menu_drawer_selection_widget.dart';
 
-class AndroidGridViewAppDetailWidget extends StatefulWidget {
+class AndroidGridViewAppDetailWidget extends StatelessWidget {
   const AndroidGridViewAppDetailWidget({
     super.key,
-    required this.application,
+    required this.installedApplication,
   });
 
-  final InstalledApplication application;
+  final InstalledApplication installedApplication;
 
-  @override
-  State<AndroidGridViewAppDetailWidget> createState() =>
-      _AndroidGridViewAppDetailWidgetState();
-}
-
-class _AndroidGridViewAppDetailWidgetState
-    extends State<AndroidGridViewAppDetailWidget> {
-  late Uint8List imageBytes;
-
-  @override
-  void initState() {
-    super.initState();
-    imageBytes = base64
-        .decode(widget.application.appIconBase64.replaceAll(RegExp(r'\s'), ''));
-  }
-
-  void _showPopupMenu(Offset offset) async {
+  void showPopupMenu({
+    required Offset offset,
+    required BuildContext context,
+  }) async {
     final RenderBox overlay =
         Overlay.of(context).context.findRenderObject() as RenderBox;
     await showMenu(
@@ -42,41 +28,45 @@ class _AndroidGridViewAppDetailWidgetState
       ),
       color: Colors.transparent,
       shadowColor: Colors.transparent,
-      items: const [
+      items: [
         PopupMenuItem(
           enabled: false,
           value: 'app_dashboard',
           child: AndroidAppMenuPopupItemWidget(
-            icon: Icons.bar_chart_rounded,
-            title: 'App Dashboard',
             index: 0,
+            title: 'App Dashboard',
+            icon: Icons.bar_chart_rounded,
+            onPressed: () {},
           ),
         ),
         PopupMenuItem(
           enabled: false,
           value: 'app_drawer',
           child: AndroidAppMenuPopupItemWidget(
-            icon: Icons.view_list_rounded,
-            title: 'App Drawer',
             index: 1,
+            title: 'App Drawer',
+            icon: Icons.view_list_rounded,
+            onPressed: () => showAppDrawer(context),
           ),
         ),
         PopupMenuItem(
           enabled: false,
           value: 'dock',
           child: AndroidAppMenuPopupItemWidget(
-            icon: Icons.file_download_outlined,
-            title: 'Dock',
             index: 2,
+            title: 'Dock',
+            icon: Icons.file_download_outlined,
+            onPressed: () {},
           ),
         ),
         PopupMenuItem(
           enabled: false,
           value: 'hide',
           child: AndroidAppMenuPopupItemWidget(
-            icon: Icons.hide_source_rounded,
-            title: 'Hide',
             index: 3,
+            title: 'Hide',
+            icon: Icons.hide_source_rounded,
+            onPressed: () {},
           ),
         ),
       ],
@@ -88,57 +78,28 @@ class _AndroidGridViewAppDetailWidgetState
     });
   }
 
+  void showAppDrawer(BuildContext context) {
+    Navigator.of(context).pop();
+    showModalBottomSheet<void>(
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
+      builder: (BuildContext context) {
+        return AndroidAppMenuDrawerSelectionWidget(
+          installedApplication: installedApplication,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async =>
-          await AndroidNativeCodePlugin.openApp(widget.application.packageName),
+    return AndroidInstalledAppCardWidget(
+      installedApplication: installedApplication,
       onLongPressStart: (LongPressStartDetails details) =>
-          _showPopupMenu(details.globalPosition),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 2),
-        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              height: 50,
-              child: widget.application.luncherIcon.isEmpty
-                  ? imageBytes.isNotEmpty
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.memory(
-                            imageBytes,
-                            width: 40,
-                            height: 40,
-                          ),
-                        )
-                      : Container()
-                  : Image.asset(
-                      'assets/images/${widget.application.luncherIcon}.png',
-                      width: 30,
-                      height: 30,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-            ),
-            Text(
-              widget.application.applicationName,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-            )
-          ],
-        ),
-      ),
+          showPopupMenu(context: context, offset: details.globalPosition),
     );
   }
 }

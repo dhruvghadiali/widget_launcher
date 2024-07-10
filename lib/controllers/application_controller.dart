@@ -62,6 +62,11 @@ class ApplicationController extends GetxController {
       for (var drawerJson in drawersJson) {
         final DrawerInfo drawerInfo = DrawerInfo.fromJson(drawerJson);
         drawers.add(drawerInfo);
+        drawers.sort((a, b) {
+          return a.name
+              .toLowerCase()
+              .compareTo(b.name.toLowerCase());
+        });
       }
     } catch (error) {
       print("Error: setDrawers $error");
@@ -81,7 +86,14 @@ class ApplicationController extends GetxController {
       if ((index == -1) &&
           drawerName.toLowerCase().trim().isNotEmpty &&
           (drawerName.toLowerCase().trim().length <= 20)) {
-        drawers.add(DrawerInfo(name: drawerName.trim()));
+        drawers.add(
+            DrawerInfo(name: drawerName.trim(), installedApplications: []));
+        drawers.sort((a, b) {
+          return a.name
+              .toLowerCase()
+              .compareTo(b.name.toLowerCase());
+        });
+
         showDrawerNameError = false;
         isResetForm = true;
 
@@ -103,19 +115,85 @@ class ApplicationController extends GetxController {
 
   Future<void> deleteDrawer(String drawerName) async {
     try {
-      int index = drawers.indexWhere((drawer) =>
-          drawer.name.toLowerCase() == drawerName.toLowerCase());
+      int index = drawers.indexWhere(
+          (drawer) => drawer.name.toLowerCase() == drawerName.toLowerCase());
 
-      if (index != -1 ) {
-        drawers.removeWhere((drawer) => drawer.name.toLowerCase() == drawerName.toLowerCase());
+      if (index != -1) {
+        drawers.removeWhere(
+            (drawer) => drawer.name.toLowerCase() == drawerName.toLowerCase());
         await SharedPreferencesPlugin.addDrawer(
           json.encode(
             drawers.map((drawer) => drawer.toJson()).toList(),
           ),
         );
-      } 
+      }
     } catch (error) {
       print("Error: deleteDrawer $error");
+    }
+
+    update();
+  }
+
+  Future<void> addApplicationOnDrawer({
+    required InstalledApplication installedApplication,
+    required String drawerName,
+  }) async {
+    try {
+      int index = drawers.indexWhere((drawer) =>
+          drawer.name.toLowerCase() == drawerName.toLowerCase().trim());
+
+      if (index != -1) {
+        int applicationIndex = drawers[index].installedApplications.indexWhere(
+            (installedApp) =>
+                installedApp.applicationName.toLowerCase() ==
+                installedApplication.applicationName.toLowerCase());
+
+        if (applicationIndex == -1) {
+          List<InstalledApplication> drawerInstalledApplications =
+              drawers[index].installedApplications;
+          drawerInstalledApplications.add(installedApplication);
+          drawers[index]
+              .copyWith(installedApplications: drawerInstalledApplications);
+
+          await SharedPreferencesPlugin.addDrawer(
+            json.encode(
+              drawers.map((drawer) => drawer.toJson()).toList(),
+            ),
+          );
+        }
+      }
+    } catch (error) {
+      print("Error: addApplicationOnDrawer $error");
+    }
+
+    update();
+  }
+
+  Future<void> removeApplicationFromDrawer({
+    required InstalledApplication installedApplication,
+    required String drawerName,
+  }) async {
+    try {
+      int index = drawers.indexWhere((drawer) =>
+          drawer.name.toLowerCase() == drawerName.toLowerCase().trim());
+
+      if (index != -1) {
+        List<InstalledApplication> drawerInstalledApplications =
+            drawers[index].installedApplications;
+        drawerInstalledApplications.removeWhere((installedApp) =>
+            installedApp.applicationName.toLowerCase() ==
+            installedApplication.applicationName.toLowerCase());
+        drawers[index]
+            .copyWith(installedApplications: drawerInstalledApplications);
+
+        await SharedPreferencesPlugin.addDrawer(
+          json.encode(
+            drawers.map((drawer) => drawer.toJson()).toList(),
+          ),
+        );
+      }
+    } catch (error) {
+      print("Error: removeApplicationFromDrawer $error");
     }
 
     update();

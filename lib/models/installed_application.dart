@@ -65,6 +65,17 @@ class InstalledApplication {
         isLaunchable: false,
       );
 
+  Map<String, dynamic> toJson() => {
+        'appName': applicationName,
+        'packageName': packageName,
+        'applicationSourceDir': applicationSourceDir,
+        'appIconBase64': appIconBase64,
+        'luncherIcon': luncherIcon,
+        'installedFromPlayStore': installedFromPlayStore,
+        'installedFromDeviceManufacturer': installedFromDeviceManufacturer,
+        'isLaunchable': isLaunchable,
+      };
+
   static String setApplicationName(Map<String, dynamic> json) {
     if (json.containsKey('appName')) {
       if (json['appName'] != null &&
@@ -154,8 +165,9 @@ class InstalledApplication {
       if (json['appName'] != null &&
           json['appName'] is String &&
           json['appName'].toString().isNotEmpty) {
-        print("appName ${json['appName']} == ${json['packageName']} == ${json['source']} == ${json['installedFromPlayStore']} == ${json['installedFromDeviceManufacturer']} == ${json['isLaunchable']}");
-        
+        print(
+            "appName ${json['appName']} == ${json['packageName']} == ${json['source']} == ${json['installedFromPlayStore']} == ${json['installedFromDeviceManufacturer']} == ${json['isLaunchable']}");
+
         switch (json['appName'].toString().toLowerCase()) {
           case 'adobe acrobat':
             return 'adobe_acrobat';

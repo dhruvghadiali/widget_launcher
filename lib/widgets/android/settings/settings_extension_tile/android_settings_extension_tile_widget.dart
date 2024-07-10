@@ -35,8 +35,10 @@ class AndroidSettingsExtensionTileWidget extends StatelessWidget {
         subtitle,
         maxLines: 2,
         style: Theme.of(context).textTheme.labelSmall!.copyWith(
-              color:
-                  Theme.of(context).extension<ExtensionsThemeData>()!.warning,
+              color: MediaQuery.of(context).platformBrightness ==
+                      Brightness.dark
+                  ? Theme.of(context).extension<ExtensionsThemeData>()!.warning
+                  : Theme.of(context).extension<ExtensionsThemeData>()!.light,
             ),
       ),
       children: children ?? [],

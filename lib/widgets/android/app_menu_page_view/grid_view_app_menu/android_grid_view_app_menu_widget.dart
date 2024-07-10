@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:widget_launcher/controllers/application_controller.dart';
+import 'package:flutter/material.dart';
+
 import 'package:widget_launcher/models/installed_application.dart';
+import 'package:widget_launcher/controllers/application_controller.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/app_menu_header/android_app_menu_header_widget.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/grid_view_app_menu/grid_view_app_detail/android_grid_view_app_detail_widget.dart';
 
@@ -40,8 +41,9 @@ class _AndroidGridViewAppMenuWidgetState
             itemCount: _alphabets.length,
             itemBuilder: (BuildContext context, int index) {
               List<InstalledApplication> applicationsByAlphabet = _applications
-                  .where((application) =>
-                      application.applicationName.toUpperCase().startsWith(_alphabets[index]))
+                  .where((application) => application.applicationName
+                      .toUpperCase()
+                      .startsWith(_alphabets[index]))
                   .toList();
 
               return applicationsByAlphabet.isEmpty
@@ -76,7 +78,8 @@ class _AndroidGridViewAppMenuWidgetState
                                           MediaQuery.of(context).size.height),
                           itemBuilder: (BuildContext context, int index) {
                             return AndroidGridViewAppDetailWidget(
-                              application: applicationsByAlphabet[index],
+                              installedApplication:
+                                  applicationsByAlphabet[index],
                             );
                           },
                         )

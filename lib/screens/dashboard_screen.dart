@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:widget_launcher/controllers/application_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:widget_launcher/utils/android_native_code_plugin.dart';
+import 'package:widget_launcher/controllers/application_controller.dart';
 import 'package:widget_launcher/widgets/android/dashboard/android_dashboard_widget.dart';
+import 'package:widget_launcher/widgets/android/common/loader/android_loader_widget.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -25,13 +27,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ApplicationController>(
-      builder: (installedApplicationControllerContext) {
-        return PopScope(
-          canPop: false,
-          child: Scaffold(
-            body: AndroidDashboardWidget(),
-          ),
-        );
+      builder: (applicationControllerContext) {
+        return applicationControllerContext.showAppLuncherLoader
+            ? const AndroidLoaderWidget()
+            : PopScope(
+                canPop: false,
+                child: Scaffold(
+                  body: AndroidDashboardWidget(),
+                ),
+              );
       },
     );
   }

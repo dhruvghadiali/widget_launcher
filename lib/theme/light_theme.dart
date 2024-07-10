@@ -14,8 +14,8 @@ class LightTheme {
       secondary: LightThemeColors.colorBlack,
       onSecondary: LightThemeColors.colorBlack,
       tertiary:  DarkThemeColors.colorBattleshipGrey,
-      error: LightThemeColors.colorDarkSlateGray,
-      onError: LightThemeColors.colorDarkSlateGray,
+      error: LightThemeColors.colorCherryBomb,
+      onError: LightThemeColors.colorCherryBomb,
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(),

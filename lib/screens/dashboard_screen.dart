@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_launcher/utils/android_native_code_plugin.dart';
@@ -28,14 +27,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<ApplicationController>(
       builder: (applicationControllerContext) {
-        return applicationControllerContext.showAppLuncherLoader
-            ? const AndroidLoaderWidget()
-            : PopScope(
-                canPop: false,
-                child: Scaffold(
-                  body: AndroidDashboardWidget(),
-                ),
-              );
+        return PopScope(
+          canPop: false,
+          child: Scaffold(
+            body: applicationControllerContext.showAppLuncherLoader
+                ? const AndroidLoaderWidget()
+                : AndroidDashboardWidget(),
+          ),
+        );
       },
     );
   }

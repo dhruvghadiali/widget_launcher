@@ -17,6 +17,11 @@ class ApplicationController extends GetxController {
   Future<void> setInstalledApplications(
     List<dynamic> installedApplicationList,
   ) async {
+    installedApplications = [];
+    applicationsInstalledFromPlayStore = [];
+    applicationsInstalledFromDeviceManufacturer = [];
+    applicationsCanLunched = [];
+    
     try {
       String drawerList = await SharedPreferencesPlugin.getDrawers();
       await setDrawers(drawerList);
@@ -63,9 +68,7 @@ class ApplicationController extends GetxController {
         final DrawerInfo drawerInfo = DrawerInfo.fromJson(drawerJson);
         drawers.add(drawerInfo);
         drawers.sort((a, b) {
-          return a.name
-              .toLowerCase()
-              .compareTo(b.name.toLowerCase());
+          return a.name.toLowerCase().compareTo(b.name.toLowerCase());
         });
       }
     } catch (error) {
@@ -89,9 +92,7 @@ class ApplicationController extends GetxController {
         drawers.add(
             DrawerInfo(name: drawerName.trim(), installedApplications: []));
         drawers.sort((a, b) {
-          return a.name
-              .toLowerCase()
-              .compareTo(b.name.toLowerCase());
+          return a.name.toLowerCase().compareTo(b.name.toLowerCase());
         });
 
         showDrawerNameError = false;

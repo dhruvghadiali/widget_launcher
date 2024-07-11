@@ -30,6 +30,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         return PopScope(
           canPop: false,
           child: Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.surface,
             body: applicationControllerContext.showAppLuncherLoader
                 ? const AndroidLoaderWidget()
                 : AndroidDashboardWidget(),

@@ -1,20 +1,35 @@
 package com.example.widget_launcher
 
+import android.net.Uri
+import android.Manifest
 import android.os.Bundle
 import android.util.Base64
+import kotlinx.coroutines.*
 import android.content.Intent
 import android.graphics.Bitmap
 import android.content.Context
 import android.graphics.Canvas
-import androidx.annotation.NonNull
+import android.database.Cursor
+import android.provider.Telephony
 import android.content.pm.PackageInfo
+import android.annotation.SuppressLint
+import android.content.ContentResolver
+import android.provider.ContactsContract
 import android.content.pm.PackageManager
 import android.content.pm.ApplicationInfo
 import android.graphics.drawable.Drawable
+import androidx.core.app.ActivityOptionsCompat
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.AdaptiveIconDrawable
-import androidx.core.app.ActivityOptionsCompat
 
+import androidx.annotation.NonNull
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+
+import android.os.Build
+
+import java.util.*
+import java.text.SimpleDateFormat
 import java.io.ByteArrayOutputStream
 
 import io.flutter.plugin.common.MethodCall
@@ -31,6 +46,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 
 class MainActivity: FlutterActivity(){
     private val CHANNEL_NAME = "com.example.widget_launcher/android";
+    private val SMS_PERMISSION_CODE = 1
+
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL_NAME).setMethodCallHandler {
@@ -41,7 +58,15 @@ class MainActivity: FlutterActivity(){
                 } else if (call.method == "openApp") {
                     val value = openApplicarion(call.argument<String>("packageName").toString())
                     result.success(value)
-                }else {
+                } else if (call.method == "getTextMessages") {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val smsList = getSmsGroupedBySender()
+                        withContext(Dispatchers.Main) {
+                            result.success(smsList)
+                        }
+                    }
+                }
+                else {
                     result.notImplemented()
                 }
         }
@@ -132,6 +157,76 @@ class MainActivity: FlutterActivity(){
         } else {
             return false
         }
+    }
+
+    private fun getSmsGroupedBySender(): Map<String, List<Map<String, String>>> {
+        val smsMap = mutableMapOf<String, MutableList<Map<String, String>>>()
+        val projection = arrayOf(
+            Telephony.Sms.ADDRESS,
+            Telephony.Sms.BODY,
+            Telephony.Sms.DATE,
+            Telephony.Sms.TYPE,
+            Telephony.Sms.READ
+        )
+        val cursor: Cursor? = context.contentResolver.query(
+           Telephony.Sms.CONTENT_URI,
+            projection,
+            null,
+            null,
+            Telephony.Sms.DATE + " DESC"
+        )
+
+        cursor?.use {
+            val addressIdx = it.getColumnIndex(Telephony.Sms.ADDRESS)
+            val dateIdx = it.getColumnIndex(Telephony.Sms.DATE)
+            val bodyIdx = it.getColumnIndex(Telephony.Sms.BODY)
+            val typeIdx = it.getColumnIndex(Telephony.Sms.TYPE)
+            val readIdx = it.getColumnIndex(Telephony.Sms.READ)
+
+            while (it.moveToNext()) {
+                val address = it.getString(addressIdx)
+                val dateMillis = it.getLong(dateIdx)
+                val body = it.getString(bodyIdx)
+                val type = it.getString(typeIdx)
+                val read  = it.getString(readIdx)
+
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                val date = dateFormat.format(Date(dateMillis))
+                val contactName = getContactName(address)
+
+                val smsData = mapOf(
+                    "message" to body,
+                    "read" to read,
+                    "type" to type,
+                    "date" to date,
+                    "contactName" to contactName,
+                )
+
+                if (smsMap.containsKey(address)) {
+                    smsMap[address]?.add(smsData)
+                } else {
+                    smsMap[address] = mutableListOf(smsData)
+                }
+            }
+        }
+        return smsMap
+    }
+
+    private fun getContactName(phoneNumber: String): String {
+        val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+        val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+        val selection = "${ContactsContract.CommonDataKinds.Phone.NUMBER} = ?"
+        val selectionArgs = arrayOf(phoneNumber)
+
+        val cursor: Cursor? = contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.let {
+            if (it.moveToFirst()) {
+                val contactName = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                it.close()
+                return contactName
+            }
+        }
+        return phoneNumber
     }
 }
 

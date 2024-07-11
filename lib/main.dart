@@ -3,6 +3,7 @@ import 'package:widget_launcher/theme/dark_theme.dart';
 import 'package:widget_launcher/theme/light_theme.dart';
 import 'package:widget_launcher/screens/settings_screen.dart';
 import 'package:widget_launcher/screens/dashboard_screen.dart';
+import 'package:widget_launcher/screens/conversion_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const DashboardScreen(),
         '/settings': (context) => const SettingsScreen(),
+        '/conversion': (context) => const ConversionScreen(),
       },
     );
   }

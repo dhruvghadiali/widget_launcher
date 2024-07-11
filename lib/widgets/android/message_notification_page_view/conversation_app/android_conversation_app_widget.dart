@@ -28,6 +28,7 @@ class AndroidConversationAppWidget extends StatelessWidget {
           "assets/images/$imageName.png",
           width: 13,
           height: 13,
+          color: Theme.of(context).colorScheme.primary,
         ),
         label: Text(
           name,

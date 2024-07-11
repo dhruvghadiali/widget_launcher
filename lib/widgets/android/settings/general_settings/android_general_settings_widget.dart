@@ -19,10 +19,17 @@ class AndroidGeneralSettingsWidget extends StatelessWidget {
         ),
         AndroidExtensionTileTextButtonWidget(
           onPressed: () {},
+          title: 'Message',
+          icon: Icons.message,
+        ),
+        AndroidExtensionTileTextButtonWidget(
+          onPressed: () {},
           title: 'Theme',
           icon: Icons.color_lens_rounded,
-          subtitle: MediaQuery.of(context).platformBrightness == Brightness.dark ? 'Dark' : 'Light',
-        )
+          subtitle: MediaQuery.of(context).platformBrightness == Brightness.dark
+              ? 'Dark'
+              : 'Light',
+        ),
       ],
     );
   }

@@ -21,7 +21,7 @@ class ApplicationController extends GetxController {
     applicationsInstalledFromPlayStore = [];
     applicationsInstalledFromDeviceManufacturer = [];
     applicationsCanLunched = [];
-    
+
     try {
       String drawerList = await SharedPreferencesPlugin.getDrawers();
       await setDrawers(drawerList);

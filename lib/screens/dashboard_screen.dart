@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_launcher/controllers/weather_controller.dart';
 import 'package:widget_launcher/utils/android_native_code_plugin.dart';
 import 'package:widget_launcher/controllers/application_controller.dart';
 import 'package:widget_launcher/widgets/android/dashboard/android_dashboard_widget.dart';
@@ -13,14 +15,34 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  late Timer _timer;
+  WeatherController  weatherController = Get.put(WeatherController());
+  
   @override
   void initState() {
     super.initState();
-    getInstalledAppliactions();
+    weatherController.fetchWeather();
+    _getInstalledAppliactions();
+    _startTimer();
   }
 
-  Future getInstalledAppliactions() async {
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  Future _getInstalledAppliactions() async {
     await AndroidNativeCodePlugin.getInstalledApps();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(
+      const Duration(minutes: 5),
+      (Timer timer) {
+        weatherController.fetchWeather();
+      },
+    );
   }
 
   @override

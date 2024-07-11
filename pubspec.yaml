@@ -38,6 +38,8 @@ dependencies:
   get: ^4.6.6
   intl: ^0.19.0
   shared_preferences: ^2.2.3
+  geolocator: ^12.0.0
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +78,7 @@ flutter:
     - assets/images/canva.png
     - assets/images/chrome.png
     - assets/images/clock.png
+    - assets/images/cloud.png
     - assets/images/company_portal.png
     - assets/images/compass.png
     - assets/images/contacts.png
@@ -107,6 +110,24 @@ flutter:
     - assets/images/teams.png
     - assets/images/whatsapp.png
     - assets/images/word.png
+    - assets/images/01d.png
+    - assets/images/02d.png
+    - assets/images/03d.png
+    - assets/images/04d.png
+    - assets/images/09d.png
+    - assets/images/10d.png
+    - assets/images/11d.png
+    - assets/images/13d.png
+    - assets/images/50d.png
+    - assets/images/01n.png
+    - assets/images/02n.png
+    - assets/images/03n.png
+    - assets/images/04n.png
+    - assets/images/09n.png
+    - assets/images/10n.png
+    - assets/images/11n.png
+    - assets/images/13n.png
+    - assets/images/50n.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

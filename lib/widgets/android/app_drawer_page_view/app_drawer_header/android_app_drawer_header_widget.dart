@@ -18,6 +18,19 @@ class _AndroidAppDrawerHeaderWidgetState
   String _currentTimeNational = '';
   String _currentDate = '';
 
+  @override
+  void initState() {
+    super.initState();
+    getCurrentDateTime();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   void getCurrentDateTime() {
     DateTime currentTime = DateTime.now();
     setState(() {
@@ -34,19 +47,6 @@ class _AndroidAppDrawerHeaderWidgetState
         getCurrentDateTime();
       },
     );
-  }
-
-  @override
-  void initState() {
-    getCurrentDateTime();
-    startTimer();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
   }
 
   @override

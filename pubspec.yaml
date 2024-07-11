@@ -100,10 +100,12 @@ flutter:
     - assets/images/keep_notes.png
     - assets/images/left_arrow.png
     - assets/images/lightroom.png
-    - assets/images/left_arrow.png
+    - assets/images/messages.png
     - assets/images/outlook.png
+    - assets/images/phone.png
     - assets/images/powerpoint.png
     - assets/images/teams.png
+    - assets/images/whatsapp.png
     - assets/images/word.png
     
 

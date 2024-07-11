@@ -9,24 +9,44 @@ class AndroidNativeCodePlugin {
 
   static Future<void> getInstalledApps() async {
     try {
-      final ApplicationController installedApplicationController = Get.put(ApplicationController());
+      final ApplicationController installedApplicationController =
+          Get.put(ApplicationController());
       List<dynamic> installedApplications =
           await _channel.invokeMethod('installedApps');
-      installedApplicationController.setInstalledApplications(installedApplications);
+      installedApplicationController
+          .setInstalledApplications(installedApplications);
     } catch (error) {
       print("Error: Get installed applications $error");
     }
   }
 
   static Future<void> openApp(String packageName) async {
+    print("packageName $packageName");
     try {
       bool result =
           await _channel.invokeMethod('openApp', {'packageName': packageName});
-      if(!result){
+      if (!result) {
         print("Open Alert for app opening issue $packageName");
       }
     } catch (error) {
       print("Error: Get installed applications $error");
+    }
+  }
+
+  static Future<Map<dynamic, dynamic>> getTextMessages() async {
+    try {
+      return await _channel.invokeMethod('getTextMessages');
+    } catch (error) {
+      print("Error: Failed to get text messages '$error'.");
+      return {};
+    }
+  }
+
+  static Future<void> textMessagesMarkAsRead(String messageId) async {
+    try {
+      await _channel.invokeMethod('textMessagesMarkAsRead', {'messageId': messageId});
+    } catch (error) {
+      print("Error: Failed to text messages mark as read '$error'.");
     }
   }
 }

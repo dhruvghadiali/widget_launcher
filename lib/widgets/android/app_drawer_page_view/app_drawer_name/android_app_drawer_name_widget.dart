@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:widget_launcher/controllers/application_controller.dart';
 import 'package:widget_launcher/models/drawer_info.dart';
 import 'package:widget_launcher/theme/extensions_theme_data.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/app_menu_popup_item/android_app_menu_popup_item_widget.dart';
@@ -36,7 +38,10 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
             index: 0,
             title: 'Delete',
             icon: Icons.delete,
-            onPressed: () {},
+            onPressed: () => deleteDrawer(
+              context: context,
+              drawerName: drawerInfo.name,
+            ),
           ),
         ),
         PopupMenuItem(
@@ -88,6 +93,16 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
     });
   }
 
+  void deleteDrawer({
+    required BuildContext context,
+    required String drawerName,
+  }) {
+    Navigator.pop(context);
+    final ApplicationController applicationController =
+        Get.put(ApplicationController());
+    applicationController.deleteDrawer(drawerName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -96,6 +111,7 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
         offset: details.globalPosition,
       ),
       child: ExpansionTile(
+        enabled: drawerInfo.installedApplications.isEmpty ? false : true,
         iconColor: Theme.of(context).colorScheme.secondary,
         shape: const Border(
           bottom: BorderSide(

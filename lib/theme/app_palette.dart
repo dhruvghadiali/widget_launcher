@@ -19,7 +19,7 @@ abstract class LightThemeColors {
   static Color colorBlack = const Color(0xFF000000); // Secondary
   static Color colorBattleshipGrey = const Color(0xFF7F7F7F); // Tertiary
   static Color colorDarkSlateGray = const Color(0xFF2C2C2C);  // Info
-  static Color colorSandyBrown = const Color(0xFFFFBB64); // Warning
+  static Color colorSandyBrown = const Color(0xFFDD7D00); // Warning
   static Color colorCherryBomb = const Color(0xFFB33A3A); // Error
   static Color colorlightGreen = const Color(0xFFA5DD9B); // Success
   static Color colorDarkVoid = const Color(0xFF161616); // Dark

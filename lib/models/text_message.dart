@@ -1,4 +1,5 @@
 class TextMessage {
+  String id;
   String contactName;
   String message;
   int read;
@@ -6,6 +7,7 @@ class TextMessage {
   DateTime date;
 
   TextMessage({
+    required this.id,
     required this.contactName,
     required this.message,
     required this.read,
@@ -15,6 +17,7 @@ class TextMessage {
 
   factory TextMessage.fromJson(Map<String, dynamic> json) {
     return TextMessage(
+      id: setId(json),
       contactName: setContactName(json),
       message: setMessage(json),
       read: setRead(json),
@@ -24,6 +27,7 @@ class TextMessage {
   }
 
   TextMessage copyWith({
+    String? id,
     String? contactName,
     String? message,
     int? read,
@@ -31,6 +35,7 @@ class TextMessage {
     DateTime? date,
   }) =>
       TextMessage(
+        id: id ?? this.id,
         contactName: contactName ?? this.contactName,
         message: message ?? this.message,
         read: read ?? this.read,
@@ -39,6 +44,7 @@ class TextMessage {
       );
 
   static TextMessage defaultValues() => TextMessage(
+        id: '',
         contactName: '',
         message: '',
         read: 1,
@@ -47,10 +53,25 @@ class TextMessage {
       );
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'contactName': contactName,
         'message': message,
         'date': date,
+        'read': read,
+        'type': type,
       };
+
+  static String setId(Map<String, dynamic> json) {
+    if (json.containsKey('id')) {
+      if (json['id'] != null &&
+          json['id'] is String &&
+          json['id'].toString().isNotEmpty) {
+        return json['id'];
+      }
+    }
+
+    return '';
+  }
 
   static String setContactName(Map<String, dynamic> json) {
     if (json.containsKey('contactName')) {
@@ -76,7 +97,7 @@ class TextMessage {
     return '';
   }
 
-   static int setRead(Map<String, dynamic> json) {
+  static int setRead(Map<String, dynamic> json) {
     if (json.containsKey('read')) {
       if (json['read'] != null &&
           json['read'] is String &&
@@ -105,7 +126,7 @@ class TextMessage {
       if (json['date'] != null &&
           json['date'] is String &&
           json['date'].toString().isNotEmpty) {
-        return DateTime.parse(json['date']) ;
+        return DateTime.parse(json['date']);
       }
     }
 

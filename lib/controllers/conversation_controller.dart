@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:widget_launcher/models/text_message_provider.dart';
 import 'package:widget_launcher/utils/android_native_code_plugin.dart';
 
-class ConversionController extends GetxController {
+class ConversationController extends GetxController {
+  int activeConversationIndex = 0;
   bool showLoader = false;
   List<TextMessageProvider> textMessages = [];
   TextMessageProvider selectedTextMessages =
@@ -37,7 +38,23 @@ class ConversionController extends GetxController {
   }
 
   Future<void> setTextMessages(TextMessageProvider textMessageProvider) async {
+    // try {
+    //   for (var message in textMessageProvider.messages) {
+    //     if (message.read == 0) {
+    //       await AndroidNativeCodePlugin.textMessagesMarkAsRead(message.id);
+    //       message.copyWith(read: 1);
+    //     }
+    //   }
+    // } catch (error) {
+    //   print("Error: setTextMessages $error");
+    // }
+
     selectedTextMessages = textMessageProvider;
+    update();
+  }
+
+  Future<void> setActiveConversationIndex (int index) async {
+    activeConversationIndex = index;
     update();
   }
 }

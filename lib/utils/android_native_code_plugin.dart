@@ -21,6 +21,7 @@ class AndroidNativeCodePlugin {
   }
 
   static Future<void> openApp(String packageName) async {
+    print("packageName $packageName");
     try {
       bool result =
           await _channel.invokeMethod('openApp', {'packageName': packageName});
@@ -36,8 +37,16 @@ class AndroidNativeCodePlugin {
     try {
       return await _channel.invokeMethod('getTextMessages');
     } catch (error) {
-      print("Error: Failed to get messages '$error'.");
+      print("Error: Failed to get text messages '$error'.");
       return {};
+    }
+  }
+
+  static Future<void> textMessagesMarkAsRead(String messageId) async {
+    try {
+      await _channel.invokeMethod('textMessagesMarkAsRead', {'messageId': messageId});
+    } catch (error) {
+      print("Error: Failed to text messages mark as read '$error'.");
     }
   }
 }

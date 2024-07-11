@@ -40,7 +40,8 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 
-
+import android.content.ContentValues
+import android.util.Log
 
 
 
@@ -65,8 +66,21 @@ class MainActivity: FlutterActivity(){
                             result.success(smsList)
                         }
                     }
-                }
-                else {
+                }else if (call.method == "textMessagesMarkAsRead"){
+                     CoroutineScope(Dispatchers.IO).launch {
+                        val messageId = call.argument<String>("messageId")
+                        if (messageId != null) {
+                            val success = markSmsAsRead(messageId)
+                            withContext(Dispatchers.Main) {
+                                result.success(success)
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                result.error("INVALID_ARGUMENT", "Message ID is required", null)
+                            }
+                        }
+                    }
+                }else {
                     result.notImplemented()
                 }
         }
@@ -162,6 +176,7 @@ class MainActivity: FlutterActivity(){
     private fun getSmsGroupedBySender(): Map<String, List<Map<String, String>>> {
         val smsMap = mutableMapOf<String, MutableList<Map<String, String>>>()
         val projection = arrayOf(
+            Telephony.Sms._ID,
             Telephony.Sms.ADDRESS,
             Telephony.Sms.BODY,
             Telephony.Sms.DATE,
@@ -169,7 +184,7 @@ class MainActivity: FlutterActivity(){
             Telephony.Sms.READ
         )
         val cursor: Cursor? = context.contentResolver.query(
-           Telephony.Sms.CONTENT_URI,
+            Telephony.Sms.CONTENT_URI, 
             projection,
             null,
             null,
@@ -177,6 +192,7 @@ class MainActivity: FlutterActivity(){
         )
 
         cursor?.use {
+            val idx = it.getColumnIndex(Telephony.Sms._ID)
             val addressIdx = it.getColumnIndex(Telephony.Sms.ADDRESS)
             val dateIdx = it.getColumnIndex(Telephony.Sms.DATE)
             val bodyIdx = it.getColumnIndex(Telephony.Sms.BODY)
@@ -184,6 +200,7 @@ class MainActivity: FlutterActivity(){
             val readIdx = it.getColumnIndex(Telephony.Sms.READ)
 
             while (it.moveToNext()) {
+                val id = it.getString(idx)
                 val address = it.getString(addressIdx)
                 val dateMillis = it.getLong(dateIdx)
                 val body = it.getString(bodyIdx)
@@ -195,6 +212,7 @@ class MainActivity: FlutterActivity(){
                 val contactName = getContactName(address)
 
                 val smsData = mapOf(
+                    "id" to id,
                     "message" to body,
                     "read" to read,
                     "type" to type,
@@ -227,6 +245,20 @@ class MainActivity: FlutterActivity(){
             }
         }
         return phoneNumber
+    }
+
+     private fun markSmsAsRead(messageId: String) : Boolean {
+        try {
+            val uri = Uri.parse("content://sms/inbox")
+            val values = ContentValues()
+            values.put(Telephony.Sms.Inbox.READ, 1)
+            val rowsUpdated = context.contentResolver.update(uri, values, "_id=?", arrayOf("264"))
+            Log.d("SmsHelper", "Rows updated: $rowsUpdated")
+            return rowsUpdated > 0
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
     }
 }
 

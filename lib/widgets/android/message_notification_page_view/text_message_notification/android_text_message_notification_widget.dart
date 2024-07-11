@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_launcher/theme/extensions_theme_data.dart';
 import 'package:widget_launcher/models/text_message_provider.dart';
-import 'package:widget_launcher/controllers/conversion_controller.dart';
+import 'package:widget_launcher/controllers/conversation_controller.dart';
 
 class AndroidMessageNotificationWidget extends StatelessWidget {
   const AndroidMessageNotificationWidget({
@@ -13,8 +13,8 @@ class AndroidMessageNotificationWidget extends StatelessWidget {
   final TextMessageProvider textMessageProvider;
 
   void onTap(BuildContext context) {
-    ConversionController conversionController = Get.put(ConversionController());
-    conversionController.setTextMessages(textMessageProvider);
+    ConversationController conversationController = Get.put(ConversationController());
+    conversationController.setTextMessages(textMessageProvider);
     Navigator.pushNamed(context, '/conversion');
   }
 

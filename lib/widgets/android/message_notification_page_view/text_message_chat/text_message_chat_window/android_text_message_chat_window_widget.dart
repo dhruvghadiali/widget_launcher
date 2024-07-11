@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:widget_launcher/models/text_message.dart';
 import 'package:widget_launcher/theme/extensions_theme_data.dart';
 
-class AndroidChatWindowWidget extends StatelessWidget {
-  const AndroidChatWindowWidget({
+class AndroidTextMessageChatWindowWidget extends StatelessWidget {
+  const AndroidTextMessageChatWindowWidget({
     super.key,
     required this.messages,
   });

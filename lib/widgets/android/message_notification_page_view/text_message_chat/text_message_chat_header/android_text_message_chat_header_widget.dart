@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:widget_launcher/theme/extensions_theme_data.dart';
+import 'package:widget_launcher/utils/android_native_code_plugin.dart';
 
-class AndroidChatHeader extends StatelessWidget {
-  const AndroidChatHeader({
+class AndroidTextMessageChatHeaderWidget extends StatelessWidget {
+  const AndroidTextMessageChatHeaderWidget({
     super.key,
     required this.contactName,
     required this.conversionIcon,
@@ -68,11 +69,16 @@ class AndroidChatHeader extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
               borderRadius: BorderRadius.circular(100),
             ),
-            child: Image.asset(
-              'assets/images/$conversionIcon.png',
-              width: 20,
-              height: 20,
-              color: Theme.of(context).colorScheme.secondary,
+            child: GestureDetector(
+              onTap: () async => await AndroidNativeCodePlugin.openApp(
+                "com.google.android.apps.messaging",
+              ),
+              child: Image.asset(
+                'assets/images/$conversionIcon.png',
+                width: 20,
+                height: 20,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             ),
           ),
         ],

@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_launcher/controllers/conversion_controller.dart';
-import 'package:widget_launcher/widgets/android/message_notification_page_view/message_notification/android_message_notification_widget.dart';
+import 'package:widget_launcher/controllers/conversation_controller.dart';
+import 'package:widget_launcher/widgets/android/message_notification_page_view/conversation_apps/android_conversation_apps_widget.dart';
+import 'package:widget_launcher/widgets/android/message_notification_page_view/text_message_notification/android_text_message_notification_widget.dart';
 
 class AndroidMessageNotificationPageViewWidget extends StatefulWidget {
   const AndroidMessageNotificationPageViewWidget({super.key});
@@ -13,17 +14,48 @@ class AndroidMessageNotificationPageViewWidget extends StatefulWidget {
 
 class _AndroidMessageNotificationPageViewWidgetState
     extends State<AndroidMessageNotificationPageViewWidget> {
-  ConversionController conversionController = Get.put(ConversionController());
+  ConversationController conversationController =
+      Get.put(ConversationController());
+
   @override
   void initState() {
     super.initState();
-    conversionController.redTextMessages();
+    conversationController.setActiveConversationIndex(0);
+  }
+
+  Widget _getConversationBody(int activeIndex) {
+    switch (activeIndex) {
+      case 0:
+        return Container();
+      case 1:
+        return GetBuilder<ConversationController>(
+          builder: (conversationControllerContext) {
+            return ListView.builder(
+              itemCount: conversationControllerContext.textMessages.length,
+              itemBuilder: (BuildContext context, int index) {
+                return AndroidMessageNotificationWidget(
+                  textMessageProvider:
+                      conversationControllerContext.textMessages[index],
+                );
+              },
+            );
+          },
+        );
+      case 2:
+        return Container();
+      case 3:
+        return Container();
+      case 4:
+        return Container();
+      default:
+        return Container();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ConversionController>(
-        builder: (conversionControllerContext) {
+    return GetBuilder<ConversationController>(
+        builder: (conversationControllerContext) {
       return SafeArea(
         child: Container(
           color: Theme.of(context).colorScheme.surface,
@@ -37,51 +69,24 @@ class _AndroidMessageNotificationPageViewWidgetState
                   horizontal: 15,
                 ),
                 child: Text(
-                  'Conversion',
+                  'Conversations',
                   style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                         color: Theme.of(context).colorScheme.secondary,
                       ),
                 ),
               ),
               Expanded(
-                child: conversionControllerContext.showLoader
+                child: conversationControllerContext.showLoader
                     ? Center(
                         child: CircularProgressIndicator(
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                       )
-                    : ListView.builder(
-                        itemCount:
-                            conversionControllerContext.textMessages.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return AndroidMessageNotificationWidget(
-                            textMessageProvider:
-                                conversionControllerContext.textMessages[index],
-                          );
-                        },
+                    : _getConversationBody(
+                        conversationControllerContext.activeConversationIndex,
                       ),
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    ActionChip(
-                      onPressed: () {},
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                      avatar: Icon(
-                        Icons.message,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      label: Text(
-                        "Message",
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
+              const AndroidConversationAppsWidget(),
             ],
           ),
         ),

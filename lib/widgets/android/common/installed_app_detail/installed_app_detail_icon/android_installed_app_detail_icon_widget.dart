@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
-class AndroidInstalledAppIconWidget extends StatelessWidget {
-  const AndroidInstalledAppIconWidget({
+class AndroidInstalledAppDetailIconWidget extends StatelessWidget {
+  const AndroidInstalledAppDetailIconWidget({
     super.key,
     required this.luncherIcon,
     required this.imageBytes,
@@ -14,19 +14,25 @@ class AndroidInstalledAppIconWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      height: 50,
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.circular(100),
+      ),
       child: luncherIcon.isEmpty
           ? imageBytes.isNotEmpty
               ? ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(100),
                   child: Image.memory(
                     imageBytes,
-                    width: 40,
-                    height: 40,
+                    width: 30,
+                    height: 30,
                   ),
                 )
-              : Container()
+              : const Icon(
+                  Icons.app_shortcut_outlined,
+                  size: 30,
+                )
           : Image.asset(
               'assets/images/$luncherIcon.png',
               width: 30,

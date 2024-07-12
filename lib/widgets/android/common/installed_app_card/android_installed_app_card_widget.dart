@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:widget_launcher/models/installed_application.dart';
 import 'package:widget_launcher/utils/android_native_code_plugin.dart';
-import 'package:widget_launcher/widgets/android/common/installed_app_card/installed_app_icon/android_installed_app_icon_widget.dart';
+import 'package:widget_launcher/widgets/android/common/installed_app_card/installed_app_card_icon/android_installed_app_card_icon_widget.dart';
 
 class AndroidInstalledAppCardWidget extends StatelessWidget {
   const AndroidInstalledAppCardWidget({
@@ -33,7 +33,7 @@ class AndroidInstalledAppCardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            AndroidInstalledAppIconWidget(
+            AndroidInstalledAppCardIconWidget(
               imageBytes: base64.decode(installedApplication.appIconBase64
                   .replaceAll(RegExp(r'\s'), '')),
               luncherIcon: installedApplication.luncherIcon,

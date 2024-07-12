@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
-class AndroidInstalledAppIconWidget extends StatelessWidget {
-  const AndroidInstalledAppIconWidget({
+class AndroidInstalledAppCardIconWidget extends StatelessWidget {
+  const AndroidInstalledAppCardIconWidget({
     super.key,
     required this.luncherIcon,
     required this.imageBytes,
@@ -22,11 +22,14 @@ class AndroidInstalledAppIconWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: Image.memory(
                     imageBytes,
-                    width: 40,
-                    height: 40,
+                    width: 30,
+                    height: 30,
                   ),
                 )
-              : Container()
+              : const Icon(
+                  Icons.app_shortcut_outlined,
+                  size: 30,
+                )
           : Image.asset(
               'assets/images/$luncherIcon.png',
               width: 30,

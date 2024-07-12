@@ -23,7 +23,7 @@ class WeatherController extends GetxController {
       location = weatherData['name'];
       icon = weatherData['weather'][0]['icon'];
       description = weatherData['weather'][0]['description'];
-      temperature = '${weatherData['main']['temp']}°C';
+      temperature = '${weatherData['main']['temp'].toString().split('.')[0]}°C';
       humidity = '${weatherData['main']['humidity']}%';
       groundLevel = '${weatherData['main']['grnd_level']} hPa';
       seaLevel = '${weatherData['main']['sea_level']} hPa';

@@ -131,9 +131,7 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
                 '${drawerInfo.installedApplications.length} Apps',
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context)
-                          .extension<ExtensionsThemeData>()!
-                          .warning,
+                      color: Theme.of(context).colorScheme.tertiary,
                     ),
               ),
             ),

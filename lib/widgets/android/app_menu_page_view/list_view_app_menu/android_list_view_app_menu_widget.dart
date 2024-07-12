@@ -4,16 +4,16 @@ import 'package:widget_launcher/models/installed_application.dart';
 import 'package:widget_launcher/controllers/application_controller.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/app_menu_selection/android_app_menu_selection_widget.dart';
 
-class AndroidGridViewAppMenuWidget extends StatefulWidget {
-  const AndroidGridViewAppMenuWidget({super.key});
+class AndroidListViewAppMenuWidget extends StatefulWidget {
+  const AndroidListViewAppMenuWidget({super.key});
 
   @override
-  State<AndroidGridViewAppMenuWidget> createState() =>
-      _AndroidGridViewAppMenuWidgetState();
+  State<AndroidListViewAppMenuWidget> createState() =>
+      _AndroidListViewAppMenuWidgetState();
 }
 
-class _AndroidGridViewAppMenuWidgetState
-    extends State<AndroidGridViewAppMenuWidget> {
+class _AndroidListViewAppMenuWidgetState
+    extends State<AndroidListViewAppMenuWidget> {
   List<String> _alphabets = [];
 
   @override
@@ -79,28 +79,20 @@ class _AndroidGridViewAppMenuWidgetState
                               _alphabets[index],
                               style: Theme.of(context)
                                   .textTheme
-                                  .headlineMedium!
+                                  .titleMedium!
                                   .copyWith(
                                     fontWeight: FontWeight.bold,
                                     color:
                                         Theme.of(context).colorScheme.secondary,
                                   ),
                             ),
-                            GridView.builder(
+                            ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: applicationsByAlphabet.length,
                               padding: const EdgeInsets.symmetric(
                                 vertical: 10,
                               ),
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 5,
-                                      childAspectRatio: (MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              1.4) /
-                                          MediaQuery.of(context).size.height),
                               itemBuilder: (BuildContext context, int index) {
                                 return AndroidAppMenuSelectionWidget(
                                   installedApplication:

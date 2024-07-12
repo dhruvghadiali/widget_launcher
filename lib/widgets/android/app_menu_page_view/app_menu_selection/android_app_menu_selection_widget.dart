@@ -1,11 +1,15 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_launcher/helper/enum.dart';
 import 'package:widget_launcher/models/installed_application.dart';
+import 'package:widget_launcher/controllers/application_controller.dart';
 import 'package:widget_launcher/widgets/android/common/installed_app_card/android_installed_app_card_widget.dart';
+import 'package:widget_launcher/widgets/android/common/installed_app_detail/android_installed_app_detail_widget.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/app_menu_popup_item/android_app_menu_popup_item_widget.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/app_menu_drawer_selection/android_app_menu_drawer_selection_widget.dart';
 
-class AndroidGridViewAppDetailWidget extends StatelessWidget {
-  const AndroidGridViewAppDetailWidget({
+class AndroidAppMenuSelectionWidget extends StatelessWidget {
+  const AndroidAppMenuSelectionWidget({
     super.key,
     required this.installedApplication,
   });
@@ -96,10 +100,49 @@ class AndroidGridViewAppDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AndroidInstalledAppCardWidget(
-      installedApplication: installedApplication,
-      onLongPressStart: (LongPressStartDetails details) =>
-          showPopupMenu(context: context, offset: details.globalPosition),
+    return GetBuilder<ApplicationController>(
+      builder: (applicationControllerContext) {
+        switch (applicationControllerContext.appMenuType) {
+          case AppMenuType.grid:
+            return AndroidInstalledAppCardWidget(
+              installedApplication: installedApplication,
+              onLongPressStart: (LongPressStartDetails details) =>
+                  showPopupMenu(
+                context: context,
+                offset: details.globalPosition,
+              ),
+            );
+          case AppMenuType.list:
+            return AndroidInstalledAppDetailWidget(
+              installedApplication: installedApplication,
+              onLongPressStart: (LongPressStartDetails details) =>
+                  showPopupMenu(
+                context: context,
+                offset: details.globalPosition,
+              ),
+            );
+          case AppMenuType.hidden:
+            return AndroidInstalledAppCardWidget(
+              installedApplication: installedApplication,
+              onLongPressStart: (LongPressStartDetails details) =>
+                  showPopupMenu(
+                context: context,
+                offset: details.globalPosition,
+              ),
+            );
+          case AppMenuType.secure:
+            return AndroidInstalledAppCardWidget(
+              installedApplication: installedApplication,
+              onLongPressStart: (LongPressStartDetails details) =>
+                  showPopupMenu(
+                context: context,
+                offset: details.globalPosition,
+              ),
+            );
+          default:
+            return Container();
+        }
+      },
     );
   }
 }

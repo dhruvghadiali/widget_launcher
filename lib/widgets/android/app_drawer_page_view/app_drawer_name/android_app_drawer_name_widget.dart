@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:widget_launcher/controllers/application_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:widget_launcher/models/drawer_info.dart';
-import 'package:widget_launcher/theme/extensions_theme_data.dart';
+import 'package:widget_launcher/controllers/application_controller.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/app_menu_popup_item/android_app_menu_popup_item_widget.dart';
 import 'package:widget_launcher/widgets/android/app_drawer_page_view/app_drawer_selected_app/android_app_drawer_selected_app_widget.dart';
 

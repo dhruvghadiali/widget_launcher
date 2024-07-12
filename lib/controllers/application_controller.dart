@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:widget_launcher/helper/enum.dart';
 import 'package:widget_launcher/models/drawer_info.dart';
 import 'package:widget_launcher/models/installed_application.dart';
 import 'package:widget_launcher/utils/shared_preferences_plugin.dart';
@@ -10,6 +11,7 @@ class ApplicationController extends GetxController {
   List<InstalledApplication> applicationsInstalledFromDeviceManufacturer = [];
   List<InstalledApplication> applicationsCanLunched = [];
   List<DrawerInfo> drawers = [];
+  AppMenuType appMenuType = AppMenuType.grid;
   bool showAppLuncherLoader = true;
   bool showDrawerNameError = false;
   bool isResetForm = false;
@@ -197,6 +199,11 @@ class ApplicationController extends GetxController {
       print("Error: removeApplicationFromDrawer $error");
     }
 
+    update();
+  }
+
+  Future<void> setAppMenuType(AppMenuType selectedAppMenuType) async {
+    appMenuType = selectedAppMenuType;
     update();
   }
 }

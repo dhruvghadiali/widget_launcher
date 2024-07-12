@@ -36,13 +36,13 @@ class AndroidAppMenuWeatherWidget extends StatelessWidget {
               ],
             ),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image.asset(
                   'assets/images/${weatherControllerContext.icon}.png',
-                  width: 60,
-                  height: 60,
+                  width: 70,
+                  height: 70,
                 ),
                 const SizedBox(
                   width: 15,
@@ -55,6 +55,8 @@ class AndroidAppMenuWeatherWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           color: Theme.of(context).colorScheme.secondary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 80,
                         ),
                   ),
                 ),

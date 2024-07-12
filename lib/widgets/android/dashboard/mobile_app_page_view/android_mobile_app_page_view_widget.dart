@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widget_launcher/utils/android_native_code_plugin.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/android_app_menu_page_view_widget.dart';
 import 'package:widget_launcher/widgets/android/app_drawer_page_view/android_app_drawer_page_view_widget.dart';
 import 'package:widget_launcher/widgets/android/dashboard/mobile_app_page_navigation/android_mobile_app_page_navigation_widget.dart';
@@ -15,6 +16,16 @@ class _AndroidMobileAppPageViewWidgetState
     extends State<AndroidMobileAppPageViewWidget> {
   final PageController _pageController = PageController(initialPage: 0);
   IconData _navigationIcon = Icons.arrow_circle_up_rounded;
+
+  @override
+  void initState() {
+    super.initState();
+    _getInstalledAppliactions();
+  }
+
+  Future _getInstalledAppliactions() async {
+    await AndroidNativeCodePlugin.getInstalledApps();
+  }
 
   void _onNavigationPressed() {
     switch (_navigationIcon) {

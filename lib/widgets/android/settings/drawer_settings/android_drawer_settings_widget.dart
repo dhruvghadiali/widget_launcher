@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_launcher/controllers/application_controller.dart';
 import 'package:widget_launcher/models/drawer_info.dart';
+import 'package:widget_launcher/controllers/application_controller.dart';
 import 'package:widget_launcher/widgets/android/settings/drawer_settings/drawer_form/android_drawer_form_widget.dart';
 import 'package:widget_launcher/widgets/android/settings/drawer_settings/drawer_list/android_drawer_list_widget.dart';
 import 'package:widget_launcher/widgets/android/settings/settings_extension_tile/android_settings_extension_tile_widget.dart';
 import 'package:widget_launcher/widgets/android/common/bottom_sheet/panel_bottom_sheet/android_panel_bottom_sheet_widget.dart';
 import 'package:widget_launcher/widgets/android/settings/settings_extension_tile_text_button/android_extension_tile_text_button_widget.dart';
+import 'package:widget_launcher/widgets/android/settings/drawer_settings/reorderable_drawer_list/android_reorderable_drawer_list_widget.dart';
 
 class AndroidDrawerSettingsWidget extends StatelessWidget {
   const AndroidDrawerSettingsWidget({super.key});
@@ -63,6 +64,28 @@ class AndroidDrawerSettingsWidget extends StatelessWidget {
     );
   }
 
+  void onOrganizeDrawers({
+    required BuildContext context,
+    required List<DrawerInfo> drawers,
+  }) {
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(25.0),
+        ),
+      ),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      context: context,
+      builder: (context) =>AndroidReorderableDrawerListWidget(drawers: drawers) ,
+    );
+  }
+
+  void onSortDrawers() {
+    final ApplicationController applicationController =
+        Get.put(ApplicationController());
+    applicationController.sortDrawer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AndroidSettingsExtensionTileWidget(
@@ -86,6 +109,27 @@ class AndroidDrawerSettingsWidget extends StatelessWidget {
               icon: Icons.list_rounded,
               subtitle:
                   '${applicationControllerContext.drawers.length} Drawers',
+            );
+          },
+        ),
+        GetBuilder<ApplicationController>(
+          builder: (applicationControllerContext) {
+            return AndroidExtensionTileTextButtonWidget(
+              onPressed: () => onOrganizeDrawers(
+                context: context,
+                drawers: applicationControllerContext.drawers,
+              ),
+              title: 'Organize drawers',
+              icon: Icons.sort_rounded,
+            );
+          },
+        ),
+        GetBuilder<ApplicationController>(
+          builder: (applicationControllerContext) {
+            return AndroidExtensionTileTextButtonWidget(
+              onPressed: () => onSortDrawers(),
+              title: 'Sort drawers',
+              icon: Icons.sort_by_alpha,
             );
           },
         ),

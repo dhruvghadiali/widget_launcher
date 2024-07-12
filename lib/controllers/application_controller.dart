@@ -65,13 +65,11 @@ class ApplicationController extends GetxController {
 
   Future<void> setDrawers(String drawerList) async {
     try {
+      drawers = [];
       final drawersJson = json.decode(drawerList);
       for (var drawerJson in drawersJson) {
         final DrawerInfo drawerInfo = DrawerInfo.fromJson(drawerJson);
         drawers.add(drawerInfo);
-        drawers.sort((a, b) {
-          return a.name.toLowerCase().compareTo(b.name.toLowerCase());
-        });
       }
     } catch (error) {
       print("Error: setDrawers $error");
@@ -93,9 +91,6 @@ class ApplicationController extends GetxController {
           (drawerName.toLowerCase().trim().length <= 20)) {
         drawers.add(
             DrawerInfo(name: drawerName.trim(), installedApplications: []));
-        drawers.sort((a, b) {
-          return a.name.toLowerCase().compareTo(b.name.toLowerCase());
-        });
 
         showDrawerNameError = false;
         isResetForm = true;
@@ -109,6 +104,47 @@ class ApplicationController extends GetxController {
         showDrawerNameError = true;
         isResetForm = false;
       }
+    } catch (error) {
+      print("Error: addDrawer $error");
+    }
+
+    update();
+  }
+
+  Future<void> reOrderDrawer({
+    required int oldIndex,
+    required int newIndex,
+  }) async {
+    try {
+      if (oldIndex < newIndex) {
+        newIndex -= 1;
+      }
+      final DrawerInfo drawer = drawers.removeAt(oldIndex);
+      drawers.insert(newIndex, drawer);
+
+      await SharedPreferencesPlugin.addDrawer(
+        json.encode(
+          drawers.map((drawer) => drawer.toJson()).toList(),
+        ),
+      );
+    } catch (error) {
+      print("Error: addDrawer $error");
+    }
+
+    update();
+  }
+
+  Future<void> sortDrawer() async {
+    try {
+      drawers.sort((a, b) {
+        return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+      });
+
+      await SharedPreferencesPlugin.addDrawer(
+        json.encode(
+          drawers.map((drawer) => drawer.toJson()).toList(),
+        ),
+      );
     } catch (error) {
       print("Error: addDrawer $error");
     }

@@ -4,6 +4,7 @@ import 'package:widget_launcher/models/drawer_info.dart';
 import 'package:widget_launcher/controllers/application_controller.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/app_menu_popup_item/android_app_menu_popup_item_widget.dart';
 import 'package:widget_launcher/widgets/android/app_drawer_page_view/app_drawer_selected_app/android_app_drawer_selected_app_widget.dart';
+import 'package:widget_launcher/widgets/android/settings/drawer_settings/reorderable_drawer_list/android_reorderable_drawer_list_widget.dart';
 
 class AndroidAppDrawerNameWidget extends StatelessWidget {
   const AndroidAppDrawerNameWidget({
@@ -30,44 +31,32 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
       color: Colors.transparent,
       shadowColor: Colors.transparent,
       items: [
+       
         PopupMenuItem(
           enabled: false,
-          value: 'delete',
+          value: 'reorder_drawer',
           child: AndroidAppMenuPopupItemWidget(
-            index: 0,
-            title: 'Delete',
-            icon: Icons.delete,
-            onPressed: () => deleteDrawer(
-              context: context,
-              drawerName: drawerInfo.name,
-            ),
+            index: 3,
+            title: 'Organize Drawer',
+            icon: Icons.sort_rounded,
+            onPressed: () => onOrganizeDrawers(context: context),
           ),
         ),
         PopupMenuItem(
           enabled: false,
-          value: 'lock',
+          value: 'sort_drawer',
           child: AndroidAppMenuPopupItemWidget(
-            index: 1,
-            title: 'Lock',
-            icon: Icons.fingerprint,
-            onPressed: () {},
-          ),
-        ),
-        PopupMenuItem(
-          enabled: false,
-          value: 'sort_apps',
-          child: AndroidAppMenuPopupItemWidget(
-            index: 2,
-            title: 'Sort Apps',
+            index: 4,
+            title: 'Sort Drawer',
             icon: Icons.sort_by_alpha,
-            onPressed: () {},
+            onPressed: () => onSortDrawer(context: context),
           ),
         ),
         PopupMenuItem(
           enabled: false,
           value: 'edit_apps',
           child: AndroidAppMenuPopupItemWidget(
-            index: 3,
+            index: 5,
             title: 'Edit Apps',
             icon: Icons.app_registration_sharp,
             onPressed: () {},
@@ -75,11 +64,44 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
         ),
         PopupMenuItem(
           enabled: false,
+          value: 'sort_apps',
+          child: AndroidAppMenuPopupItemWidget(
+            index: 6,
+            title: 'Sort Apps',
+            icon: Icons.sort_by_alpha,
+            onPressed: () {},
+          ),
+        ),
+         PopupMenuItem(
+          enabled: false,
+          value: 'delete',
+          child: AndroidAppMenuPopupItemWidget(
+            index: 0,
+            title: 'Delete',
+            icon: Icons.delete,
+            onPressed: () => onDeleteDrawer(
+              context: context,
+              drawerName: drawerInfo.name,
+            ),
+          ),
+        ),
+        PopupMenuItem(
+          enabled: false,
           value: 'rename',
           child: AndroidAppMenuPopupItemWidget(
-            index: 4,
+            index: 1,
             title: 'Rename',
             icon: Icons.edit_square,
+            onPressed: () {},
+          ),
+        ),
+        PopupMenuItem(
+          enabled: false,
+          value: 'lock',
+          child: AndroidAppMenuPopupItemWidget(
+            index: 2,
+            title: 'Lock',
+            icon: Icons.fingerprint,
             onPressed: () {},
           ),
         ),
@@ -92,7 +114,29 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
     });
   }
 
-  void deleteDrawer({
+  void onOrganizeDrawers({
+    required BuildContext context,
+  }) {
+    Navigator.pop(context);
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(25.0),
+        ),
+      ),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      context: context,
+      builder: (context) => GetBuilder<ApplicationController>(
+        builder: (applicationControllerContext) {
+          return AndroidReorderableDrawerListWidget(
+            drawers: applicationControllerContext.drawers,
+          );
+        },
+      ),
+    );
+  }
+
+  void onDeleteDrawer({
     required BuildContext context,
     required String drawerName,
   }) {
@@ -100,6 +144,13 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
     final ApplicationController applicationController =
         Get.put(ApplicationController());
     applicationController.deleteDrawer(drawerName);
+  }
+
+  void onSortDrawer({required BuildContext context}) {
+    Navigator.pop(context);
+    final ApplicationController applicationController =
+        Get.put(ApplicationController());
+    applicationController.sortDrawer();
   }
 
   @override

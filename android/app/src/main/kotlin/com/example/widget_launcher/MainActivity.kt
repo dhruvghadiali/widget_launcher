@@ -54,11 +54,19 @@ class MainActivity: FlutterActivity(){
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL_NAME).setMethodCallHandler {
                 call, result ->
                 if (call.method == "installedApps") {
-                    val installedApps = getInstalledApps()
-                    result.success(installedApps)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val installedApps = getInstalledApps()
+                        withContext(Dispatchers.Main) {
+                            result.success(installedApps)
+                        }
+                    }
                 } else if (call.method == "openApp") {
-                    val value = openApplicarion(call.argument<String>("packageName").toString())
-                    result.success(value)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val value = openApplicarion(call.argument<String>("packageName").toString())
+                        withContext(Dispatchers.Main) {
+                            result.success(value)
+                        }
+                    }
                 } else if (call.method == "getTextMessages") {
                     CoroutineScope(Dispatchers.IO).launch {
                         val smsList = getSmsGroupedBySender()

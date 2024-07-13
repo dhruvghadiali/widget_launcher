@@ -2,13 +2,29 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_launcher/helper/enum.dart';
 import 'package:widget_launcher/controllers/application_controller.dart';
+import 'package:widget_launcher/utils/android_native_code_plugin.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/app_menu_header/android_app_menu_header_widget.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/grid_view_app_menu/android_grid_view_app_menu_widget.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/list_view_app_menu/android_list_view_app_menu_widget.dart';
 
-class AndroidAppMenuPageViewWidget extends StatelessWidget {
+class AndroidAppMenuPageViewWidget extends StatefulWidget {
   const AndroidAppMenuPageViewWidget({super.key});
 
+  @override
+  State<AndroidAppMenuPageViewWidget> createState() => _AndroidAppMenuPageViewWidgetState();
+}
+
+class _AndroidAppMenuPageViewWidgetState extends State<AndroidAppMenuPageViewWidget> {
+   @override
+  void initState() {
+    super.initState();
+    _getInstalledAppliactions();
+  }
+
+  Future _getInstalledAppliactions() async {
+    await AndroidNativeCodePlugin.getInstalledApps();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

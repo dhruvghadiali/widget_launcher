@@ -233,20 +233,62 @@ class InstalledApplication {
             return 'google_tv';
           case 'google':
             return 'google';
+          case 'gpay':
+            return 'gpay';
+          case 'groww':
+            return 'groww';
+          case 'hdfc bank':
+            return 'hdfc_bank';
+          case 'imobile pay':
+            return 'imobile_pay';
           case 'instagram':
             return 'instagram';
           case 'keep notes':
             return 'keep_notes';
           case 'lightroom':
             return 'lightroom';
+          case 'linkedin':
+            return 'linkedin';
+          case 'maps':
+            return 'maps';
+          case 'medium':
+            return 'medium';
+          case 'meet':
+            return 'meet';
+          case 'messages':
+            return 'messages';
+          case 'messenger':
+            return 'messenger';
+          case 'microsoft 365 (office)':
+            return 'microsoft_365';
+          case 'microsoft defender':
+            return 'microsoft_defender';
+          case 'onedrive':
+            return 'onedrive';
+          case 'onenote':
+            return 'onenote';
           case 'outlook':
             return 'outlook';
+          case 'phone':
+            return 'phone';
+          case 'photos':
+            return 'photos';
+          case 'pinterest':
+            return 'pinterest';
           case 'powerpoint':
             return 'powerpoint';
           case 'teams':
             return 'teams';
+          case 'vlc':
+            return 'vlc';
+          case 'whatsapp':
+            return 'whatsapp';
           case 'word':
             return 'word';
+          case 'x':
+            return 'x';
+          case 'youtube':
+            return 'youtube';
           default:
             return '';
         }

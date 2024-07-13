@@ -128,7 +128,7 @@ class ApplicationController extends GetxController {
         ),
       );
     } catch (error) {
-      print("Error: addDrawer $error");
+      print("Error: reOrderDrawer $error");
     }
 
     update();
@@ -146,7 +146,7 @@ class ApplicationController extends GetxController {
         ),
       );
     } catch (error) {
-      print("Error: addDrawer $error");
+      print("Error: sortDrawer $error");
     }
 
     update();
@@ -203,6 +203,63 @@ class ApplicationController extends GetxController {
       }
     } catch (error) {
       print("Error: addApplicationOnDrawer $error");
+    }
+
+    update();
+  }
+
+  Future<void> reOrderApplicationOnDrawer({
+    required String drawerName,
+    required int oldIndex,
+    required int newIndex,
+  }) async {
+    try {
+      int index = drawers.indexWhere((drawer) =>
+          drawer.name.toLowerCase() == drawerName.toLowerCase().trim());
+
+      if (index != -1) {
+        if (oldIndex < newIndex) {
+          newIndex -= 1;
+        }
+        final InstalledApplication installedApplication =
+            drawers[index].installedApplications.removeAt(oldIndex);
+        drawers[index]
+            .installedApplications
+            .insert(newIndex, installedApplication);
+
+        await SharedPreferencesPlugin.addDrawer(
+          json.encode(
+            drawers.map((drawer) => drawer.toJson()).toList(),
+          ),
+        );
+      }
+    } catch (error) {
+      print("Error: reOrderApplicationOnDrawer $error");
+    }
+
+    update();
+  }
+
+  Future<void> sortApplications(String drawerName) async {
+    try {
+      int index = drawers.indexWhere((drawer) =>
+          drawer.name.toLowerCase() == drawerName.toLowerCase().trim());
+
+      if (index != -1) {
+        drawers[index].installedApplications.sort((a, b) {
+          return a.applicationName
+              .toLowerCase()
+              .compareTo(b.applicationName.toLowerCase());
+        });
+
+        await SharedPreferencesPlugin.addDrawer(
+          json.encode(
+            drawers.map((drawer) => drawer.toJson()).toList(),
+          ),
+        );
+      }
+    } catch (error) {
+      print("Error: sortApplications $error");
     }
 
     update();

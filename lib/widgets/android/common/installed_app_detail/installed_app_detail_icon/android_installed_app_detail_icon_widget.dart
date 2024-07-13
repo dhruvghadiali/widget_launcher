@@ -30,7 +30,7 @@ class AndroidInstalledAppDetailIconWidget extends StatelessWidget {
                   ),
                 )
               : const Icon(
-                  Icons.app_shortcut_outlined,
+                  Icons.android,
                   size: 30,
                 )
           : Image.asset(

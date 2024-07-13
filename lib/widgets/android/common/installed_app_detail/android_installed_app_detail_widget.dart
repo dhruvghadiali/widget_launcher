@@ -1,7 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:widget_launcher/models/installed_application.dart';
 import 'package:widget_launcher/utils/android_native_code_plugin.dart';
+import 'package:widget_launcher/utils/utility.dart';
 import 'package:widget_launcher/widgets/android/common/installed_app_detail/installed_app_detail_icon/android_installed_app_detail_icon_widget.dart';
 
 class AndroidInstalledAppDetailWidget extends StatelessWidget {
@@ -29,8 +29,9 @@ class AndroidInstalledAppDetailWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               AndroidInstalledAppDetailIconWidget(
-                imageBytes: base64.decode(installedApplication.appIconBase64
-                    .replaceAll(RegExp(r'\s'), '')),
+                imageBytes: Utility.converToUnit8List(
+                  installedApplication.appIconBase64,
+                ),
                 luncherIcon: installedApplication.luncherIcon,
               ),
               const SizedBox(

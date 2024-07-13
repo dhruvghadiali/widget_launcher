@@ -5,6 +5,7 @@ import 'package:widget_launcher/controllers/application_controller.dart';
 import 'package:widget_launcher/widgets/android/app_menu_page_view/app_menu_popup_item/android_app_menu_popup_item_widget.dart';
 import 'package:widget_launcher/widgets/android/app_drawer_page_view/app_drawer_selected_app/android_app_drawer_selected_app_widget.dart';
 import 'package:widget_launcher/widgets/android/settings/drawer_settings/reorderable_drawer_list/android_reorderable_drawer_list_widget.dart';
+import 'package:widget_launcher/widgets/android/app_drawer_page_view/app_drawer_reorderable_drawer_app/android_app_drawer_reorderable_drawer_app_widget.dart';
 
 class AndroidAppDrawerNameWidget extends StatelessWidget {
   const AndroidAppDrawerNameWidget({
@@ -34,7 +35,7 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
        
         PopupMenuItem(
           enabled: false,
-          value: 'reorder_drawer',
+          value: 'organize_drawer',
           child: AndroidAppMenuPopupItemWidget(
             index: 3,
             title: 'Organize Drawer',
@@ -54,12 +55,12 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
         ),
         PopupMenuItem(
           enabled: false,
-          value: 'edit_apps',
+          value: 'organize_app',
           child: AndroidAppMenuPopupItemWidget(
             index: 5,
-            title: 'Edit Apps',
-            icon: Icons.app_registration_sharp,
-            onPressed: () {},
+            title: 'Organize Apps',
+            icon: Icons.android_outlined,
+            onPressed: () => onEditApps(context: context),
           ),
         ),
         PopupMenuItem(
@@ -69,7 +70,7 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
             index: 6,
             title: 'Sort Apps',
             icon: Icons.sort_by_alpha,
-            onPressed: () {},
+            onPressed: () => onSortApps(context: context),
           ),
         ),
          PopupMenuItem(
@@ -136,6 +137,34 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
     );
   }
 
+  void onEditApps({
+    required BuildContext context,
+  }) {
+    Navigator.pop(context);
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(25.0),
+        ),
+      ),
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height - 50,
+        ),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      context: context,
+      isScrollControlled: true,
+      
+      builder: (context) => GetBuilder<ApplicationController>(
+        builder: (applicationControllerContext) {
+          return AndroidAppDrawerReorderableDrawerAppWidget(
+            drawerInfo: drawerInfo,
+            installedApplications: applicationControllerContext.installedApplications,
+          );
+        },
+      ),
+    );
+  }
+
   void onDeleteDrawer({
     required BuildContext context,
     required String drawerName,
@@ -151,6 +180,13 @@ class AndroidAppDrawerNameWidget extends StatelessWidget {
     final ApplicationController applicationController =
         Get.put(ApplicationController());
     applicationController.sortDrawer();
+  }
+
+  void onSortApps({required BuildContext context}) {
+    Navigator.pop(context);
+    final ApplicationController applicationController =
+        Get.put(ApplicationController());
+    applicationController.sortApplications(drawerInfo.name);
   }
 
   @override
